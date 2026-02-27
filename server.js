@@ -54,8 +54,8 @@ app.get('/api/compras/:id', (req, res) => {
 
 app.post('/api/login', (req, res) => {
     const { login, senha } = req.body;
-    const adminLogin = process.env.ADMIN_LOGIN || 'admin';
-    const adminSenha = process.env.ADMIN_SENHA || '123456';
+    const adminLogin = process.env.ADMIN_LOGIN || '3Fb3BJGLpaAhZ9kWdQOpfPtI';
+    const adminSenha = process.env.ADMIN_SENHA || 'uiIaiTD4qWWgol7VF5YFl2eQ';
     if (login === adminLogin && senha === adminSenha) {
         const token = jwt.sign(
             { role: 'admin' },
