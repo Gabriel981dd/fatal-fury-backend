@@ -143,7 +143,7 @@
         .login-button {
             position: absolute;
             top: 20px;
-            right: 20px;
+            left: 20px;
             background: linear-gradient(45deg, #ff4500, #ff8c00);
             border: none;
             border-radius: 50px;
@@ -1304,7 +1304,6 @@
                         <input type="email" id="gmail" name="gmail" placeholder="seuemail@gmail.com" required>
                     </div>
 
-                    <!-- TERMOS DE COMPRA -->
                     <div class="terms-box">
                         <h3>📜 Termos de Compra</h3>
                         <div class="terms-summary">
@@ -1333,7 +1332,6 @@
                         <button class="copy-button" id="copyPixKey">Copiar Chave PIX</button>
                     </div>
                     
-                    <!-- COMPROVANTE AGORA FICA EM BAIXO (COMO PEDIDO) -->
                     <div class="form-group">
                         <label for="mensagem">💬 Mensagem (opcional)</label>
                         <textarea id="mensagem" placeholder="Digite uma mensagem sobre o pagamento..."></textarea>
@@ -1556,7 +1554,6 @@
         purchaseForm.addEventListener('submit', async (e) => {
             e.preventDefault();
             
-            // Verifica se os termos foram aceitos
             if (!acceptTerms.checked) {
                 alert('Você precisa aceitar os termos de compra para continuar!');
                 return;
@@ -2085,4 +2082,4 @@
         })();
     </script>
 </body>
-    </html>
+                            </html>
