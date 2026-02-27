@@ -140,7 +140,6 @@
             text-transform: uppercase;
         }
 
-        /* Botão de Login */
         .login-button {
             position: absolute;
             top: 20px;
@@ -407,7 +406,6 @@
             color: #fff;
         }
 
-        /* Loading */
         .loading-overlay {
             position: fixed;
             top: 0;
@@ -1285,7 +1283,6 @@
         </div>
     </div>
 
-    <!-- Painel Admin -->
     <div id="adminPanel" style="display: none;">
         <div class="admin-panel">
             <h3>⚠️ Painel do Administrador</h3>
@@ -1308,15 +1305,8 @@
     </div>
 
     <script>
-        // ============================================
-        // CONFIGURAÇÃO DO BACK-END (RENDER)
-        // ============================================
         const API_URL = 'https://fatal-fury-backend-zbw8.onrender.com';
         const DISCORD_WEBHOOK_URL = 'https://discord.com/api/webhooks/1476637616656089118/z-VZQyYlxLE4eMezP6eFJBPfZ4Q4yl71bHZpB8zR6238TMM_dhsvw-JnJ_aVpMTeGLzS';
-        
-        // LOGIN E SENHA (mesmos do back-end)
-        const ADMIN_LOGIN = '67c0a6f8acd3cb34a8e8f8d5';
-        const ADMIN_PASSWORD = '67c0a6f8acd3cb34a8e8f8d5';
         
         let currentProduct = null;
         let currentPrice = 0;
@@ -1327,9 +1317,8 @@
         let statusCheckInterval = null;
         let adminAuthenticated = false;
         let selectedTransaction = null;
-        let adminToken = localStorage.getItem('adminToken'); // Guarda token JWT
+        let adminToken = localStorage.getItem('adminToken');
 
-        // Elementos
         const tabCoins = document.getElementById('tabCoins');
         const tabSkins = document.getElementById('tabSkins');
         const tabCaixas = document.getElementById('tabCaixas');
@@ -1370,7 +1359,6 @@
         const loginButton = document.getElementById('loginButton');
         const logoutButton = document.getElementById('logoutButton');
 
-        // FUNÇÕES
         function maskTelefone(value) {
             return value.replace(/\D/g, '').replace(/(\d{2})(\d)/, '($1) $2').replace(/(\d{5})(\d)/, '$1-$2').replace(/(-\d{4})\d+?$/, '$1');
         }
@@ -1501,7 +1489,6 @@
                 return;
             }
             
-            // Gerar ID único
             currentTransactionId = 'TRX-' + Date.now() + '-' + Math.random().toString(36).substr(2, 9);
             
             pixValue.textContent = `R$ ${currentPrice.toFixed(2).replace('.', ',')}`;
@@ -1519,11 +1506,6 @@
             });
         });
 
-        // ============================================
-        // FUNÇÕES DE COMUNICAÇÃO COM O BACK-END (RENDER)
-        // ============================================
-
-        // Salvar transação no back-end
         async function saveTransactionToBackend(data) {
             try {
                 const response = await fetch(`${API_URL}/api/compras`, {
@@ -1531,30 +1513,21 @@
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify(data)
                 });
-                
-                if (!response.ok) {
-                    throw new Error('Erro ao salvar transação');
-                }
-                
-                return await response.json();
+                return response.ok;
             } catch (error) {
                 console.error('Erro ao salvar no back-end:', error);
-                return null;
+                return false;
             }
         }
 
-        // Carregar todas transações (admin)
         async function loadTransactionsFromBackend() {
             if (!adminToken) return {};
-            
             try {
                 const response = await fetch(`${API_URL}/api/admin/transacoes`, {
                     headers: { 'Authorization': `Bearer ${adminToken}` }
                 });
-                
                 if (!response.ok) {
                     if (response.status === 401 || response.status === 403) {
-                        // Token expirado ou inválido
                         adminToken = null;
                         localStorage.removeItem('adminToken');
                         adminAuthenticated = false;
@@ -1563,7 +1536,6 @@
                     }
                     return {};
                 }
-                
                 return await response.json();
             } catch (error) {
                 console.error('Erro ao carregar transações:', error);
@@ -1571,16 +1543,8 @@
             }
         }
 
-        // Carregar uma transação específica
-        async function loadTransactionFromBackend(transactionId) {
-            const transactions = await loadTransactionsFromBackend();
-            return transactions[transactionId] || null;
-        }
-
-        // Atualizar status de transação (admin)
         async function updateTransactionStatusBackend(id, status) {
             if (!adminToken) return false;
-            
             try {
                 const response = await fetch(`${API_URL}/api/admin/transacoes/${id}`, {
                     method: 'PUT',
@@ -1590,46 +1554,47 @@
                     },
                     body: JSON.stringify({ status })
                 });
-                
-                if (!response.ok) {
-                    throw new Error('Erro ao atualizar status');
-                }
-                
-                return true;
+                return response.ok;
             } catch (error) {
                 console.error('Erro ao atualizar status:', error);
                 return false;
             }
         }
 
-        // Verificar status de uma transação (cliente)
         async function checkTransactionStatus() {
             if (!currentTransactionId) return;
-            
-            const data = await loadTransactionFromBackend(currentTransactionId);
-            if (data) {
-                transactionData = data;
-                if (data.status === 'approved') {
-                    paymentStatus.className = 'status-badge approved';
-                    paymentStatus.textContent = '✅ Pagamento aprovado!';
-                    if (statusCheckInterval) clearInterval(statusCheckInterval);
-                    waitingSection.classList.remove('show');
-                    clientMessage.classList.add('show', 'approved');
-                    clientMessageTitle.textContent = '✅ Pagamento Confirmado!';
-                    clientMessageText.textContent = 'Agora é só aguardar o administrador entregar seus itens no jogo.';
-                } else if (data.status === 'rejected') {
-                    paymentStatus.className = 'status-badge rejected';
-                    paymentStatus.textContent = '❌ Pagamento rejeitado';
-                    if (statusCheckInterval) clearInterval(statusCheckInterval);
-                    waitingSection.classList.remove('show');
-                    clientMessage.classList.add('show', 'rejected');
-                    clientMessageTitle.textContent = '❌ Pagamento Não Identificado';
-                    clientMessageText.textContent = 'Não foi possível confirmar seu pagamento. Entre em contato com o suporte.';
+            try {
+                const response = await fetch(`${API_URL}/api/compras/${currentTransactionId}`);
+                if (response.ok) {
+                    const data = await response.json();
+                    if (data.status === 'approved') {
+                        paymentStatus.className = 'status-badge approved';
+                        paymentStatus.textContent = '✅ Pagamento aprovado!';
+                        if (statusCheckInterval) clearInterval(statusCheckInterval);
+                        waitingSection.classList.remove('show');
+                        clientMessage.classList.add('show', 'approved');
+                        clientMessageTitle.textContent = '✅ Pagamento Confirmado!';
+                        clientMessageText.textContent = 'Agora é só aguardar o administrador entregar seus itens no jogo.';
+                    } else if (data.status === 'rejected') {
+                        paymentStatus.className = 'status-badge rejected';
+                        paymentStatus.textContent = '❌ Pagamento rejeitado';
+                        if (statusCheckInterval) clearInterval(statusCheckInterval);
+                        waitingSection.classList.remove('show');
+                        clientMessage.classList.add('show', 'rejected');
+                        clientMessageTitle.textContent = '❌ Pagamento Não Identificado';
+                        clientMessageText.textContent = 'Não foi possível confirmar seu pagamento. Entre em contato com o suporte.';
+                    }
                 }
+            } catch (error) {
+                console.error('Erro ao verificar status:', error);
             }
         }
 
-        // Mostrar loading
+        function iniciarVerificacaoStatus() {
+            if (statusCheckInterval) clearInterval(statusCheckInterval);
+            statusCheckInterval = setInterval(checkTransactionStatus, 5000);
+        }
+
         function showLoading(message) {
             const overlay = document.createElement('div');
             overlay.className = 'loading-overlay';
@@ -1681,7 +1646,6 @@
                 timestamp: new Date().toISOString()
             };
             
-            // Salva no back-end (Render)
             const saved = await saveTransactionToBackend(transactionData);
             
             if (!saved) {
@@ -1690,8 +1654,7 @@
                 return;
             }
             
-            // GERAR LINK DO SITE (sem token, só o link do site mesmo)
-            const siteLink = window.location.href.split('?')[0]; // Link base do site
+            const siteLink = window.location.href.split('?')[0];
             
             const reader = new FileReader();
             reader.readAsDataURL(file);
@@ -1724,7 +1687,7 @@
                 try {
                     await fetch(DISCORD_WEBHOOK_URL, { method: 'POST', body: formData });
                     hideLoading();
-                    statusCheckInterval = setInterval(checkTransactionStatus, 3000);
+                    iniciarVerificacaoStatus();
                 } catch (error) {
                     console.error('Erro ao enviar webhook:', error);
                     hideLoading();
@@ -1733,9 +1696,6 @@
             };
         });
 
-        // ============================================
-        // LOGIN ADMIN (COM BACK-END)
-        // ============================================
         async function fazerAdminLogin(login, senha) {
             try {
                 const response = await fetch(`${API_URL}/api/login`, {
@@ -1767,8 +1727,8 @@
             overlay.innerHTML = `
                 <div class="admin-login-box">
                     <h2>🔐 Login Admin</h2>
-                    <input type="text" id="adminLoginInput" placeholder="Login" value="${ADMIN_LOGIN}">
-                    <input type="password" id="adminPasswordInput" placeholder="Senha" value="${ADMIN_PASSWORD}">
+                    <input type="text" id="adminLoginInput" placeholder="Login" value="admin">
+                    <input type="password" id="adminPasswordInput" placeholder="Senha" value="123456">
                     <button id="submitLogin">Entrar</button>
                     <div class="error" id="loginError"></div>
                 </div>
@@ -1790,14 +1750,12 @@
             });
         }
 
-        // Mostrar painel admin
         async function showAdminPanel() {
             document.querySelector('.product-card').appendChild(adminPanel);
             adminPanel.style.display = 'block';
             await loadTransactionsList();
         }
 
-        // Carregar lista de transações
         async function loadTransactionsList() {
             const transactions = await loadTransactionsFromBackend();
             const transactionsArray = Object.values(transactions).sort((a, b) => 
@@ -1835,17 +1793,14 @@
             transactionsList.innerHTML = html;
         }
 
-        // Função global para selecionar transação
         window.selectTransaction = async function(id) {
             const transactions = await loadTransactionsFromBackend();
             const trans = transactions[id];
             if (trans) {
-                // Remove seleção anterior
                 document.querySelectorAll('.transaction-item').forEach(item => {
                     item.classList.remove('selected');
                 });
                 
-                // Adiciona seleção na atual
                 const element = document.getElementById('trans-' + id);
                 if (element) element.classList.add('selected');
                 
@@ -1871,7 +1826,6 @@
             `;
         }
 
-        // Ações do admin
         if (approvePayment) {
             approvePayment.addEventListener('click', async function() {
                 if (!selectedTransaction) {
@@ -1962,12 +1916,10 @@
             });
         }
 
-        // Login button
         loginButton.addEventListener('click', () => {
             showLogin();
         });
 
-        // Logout button
         logoutButton.addEventListener('click', () => {
             adminAuthenticated = false;
             adminToken = null;
@@ -1976,26 +1928,21 @@
             selectedTransaction = null;
         });
 
-        // Verifica se já está logado (se tiver token salvo)
         (async function checkAutoLogin() {
             if (adminToken) {
-                // Tenta carregar transações para ver se token é válido
                 const transactions = await loadTransactionsFromBackend();
                 if (Object.keys(transactions).length > 0 || transactions.constructor === Object) {
                     adminAuthenticated = true;
                     showAdminPanel();
                 } else {
-                    // Token inválido
                     adminToken = null;
                     localStorage.removeItem('adminToken');
                 }
             }
         })();
 
-        // Inicialização
         coinAmount.dispatchEvent(new Event('input'));
 
-        // Partículas
         (function() {
             const particlesContainer = document.querySelector('.particles');
             if (!particlesContainer) return;
@@ -2016,4 +1963,4 @@
         })();
     </script>
 </body>
-    </html>
+                                                        </html>
