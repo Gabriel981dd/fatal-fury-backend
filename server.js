@@ -30,7 +30,7 @@ function escreverTransacoes(transacoes) {
     fs.writeFileSync(DATA_FILE, JSON.stringify(transacoes, null, 2));
 }
 
-// ROTA DE TESTE (opcional, mas ajuda a saber se o servidor está vivo)
+// ROTA DE TESTE (para saber se o servidor está vivo)
 app.get('/', (req, res) => {
     res.send('🚀 Servidor Fatal Fury está funcionando!');
 });
@@ -38,20 +38,27 @@ app.get('/', (req, res) => {
 // ROTA PÚBLICA: receber nova compra (POST)
 app.post('/api/compras', (req, res) => {
     const compra = req.body;
+    console.log('Compra recebida:', compra); // Log para debug
+
     if (!compra.id || !compra.nick || !compra.product) {
         return res.status(400).json({ erro: 'Dados incompletos' });
     }
+
     const transacoes = lerTransacoes();
     transacoes[compra.id] = { ...compra, status: 'pending' };
     escreverTransacoes(transacoes);
+
     res.json({ sucesso: true, id: compra.id });
 });
 
 // ROTA DE LOGIN
 app.post('/api/login', (req, res) => {
     const { login, senha } = req.body;
+    console.log('Tentativa de login:', login); // Log para debug
+
     const adminLogin = process.env.ADMIN_LOGIN || 'admin';
     const adminSenha = process.env.ADMIN_SENHA || '123456';
+
     if (login === adminLogin && senha === adminSenha) {
         const token = jwt.sign(
             { role: 'admin' },
@@ -68,6 +75,7 @@ app.post('/api/login', (req, res) => {
 function verificarToken(req, res, next) {
     const authHeader = req.headers.authorization;
     if (!authHeader) return res.status(401).json({ erro: 'Token não fornecido' });
+
     const token = authHeader.split(' ')[1];
     try {
         jwt.verify(token, process.env.JWT_SECRET || 'segredo-super-seguro');
@@ -87,18 +95,23 @@ app.get('/api/admin/transacoes', verificarToken, (req, res) => {
 app.put('/api/admin/transacoes/:id', verificarToken, (req, res) => {
     const { id } = req.params;
     const { status } = req.body;
+
     if (!['approved', 'rejected'].includes(status)) {
         return res.status(400).json({ erro: 'Status inválido' });
     }
+
     const transacoes = lerTransacoes();
     if (!transacoes[id]) {
         return res.status(404).json({ erro: 'Transação não encontrada' });
     }
+
     transacoes[id].status = status;
     escreverTransacoes(transacoes);
+
     res.json({ sucesso: true });
 });
 
+// Iniciar o servidor
 app.listen(PORT, () => {
     console.log(`Servidor rodando na porta ${PORT}`);
 });
