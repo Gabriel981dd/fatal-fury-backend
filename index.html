@@ -14,1238 +14,269 @@
             padding: 0;
             box-sizing: border-box;
         }
-
         body {
             font-family: 'Poppins', sans-serif;
             background-color: #0a0000;
             color: #fff;
             line-height: 1.6;
-            position: relative;
-            min-height: 100vh;
-            overflow-x: hidden;
             display: flex;
             align-items: center;
             justify-content: center;
+            min-height: 100vh;
             padding: 15px;
         }
-
         .fog-overlay {
             position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: 
-                radial-gradient(circle at 10% 20%, rgba(180, 0, 0, 0.25) 0%, transparent 35%),
-                radial-gradient(circle at 90% 65%, rgba(220, 40, 40, 0.2) 0%, transparent 45%),
-                radial-gradient(circle at 30% 85%, rgba(255, 60, 60, 0.15) 0%, transparent 50%),
-                radial-gradient(circle at 70% 15%, rgba(200, 0, 0, 0.2) 0%, transparent 40%),
-                repeating-linear-gradient(135deg, rgba(255, 0, 0, 0.02) 0px, rgba(255, 0, 0, 0.02) 4px, transparent 4px, transparent 10px);
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: radial-gradient(circle at 10% 20%, rgba(180,0,0,0.25) 0%, transparent 35%),
+                        radial-gradient(circle at 90% 65%, rgba(220,40,40,0.2) 0%, transparent 45%),
+                        radial-gradient(circle at 30% 85%, rgba(255,60,60,0.15) 0%, transparent 50%),
+                        radial-gradient(circle at 70% 15%, rgba(200,0,0,0.2) 0%, transparent 40%),
+                        repeating-linear-gradient(135deg, rgba(255,0,0,0.02) 0px, rgba(255,0,0,0.02) 4px, transparent 4px, transparent 10px);
             pointer-events: none;
             z-index: 0;
         }
-
         .particles {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: 1;
-            pointer-events: none;
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 1; pointer-events: none;
         }
-
         .particle {
-            position: absolute;
-            width: 2px;
-            height: 2px;
-            background: rgba(255, 80, 80, 0.4);
-            border-radius: 50%;
-            box-shadow: 0 0 8px #ff3b3b;
-            animation: floatParticle 15s infinite linear;
+            position: absolute; width: 2px; height: 2px; background: rgba(255,80,80,0.4); border-radius: 50%;
+            box-shadow: 0 0 8px #ff3b3b; animation: floatParticle 15s infinite linear;
         }
-
         @keyframes floatParticle {
             0% { transform: translateY(100vh) translateX(0); opacity: 0; }
             10% { opacity: 0.6; }
             90% { opacity: 0.4; }
             100% { transform: translateY(-10vh) translateX(20px); opacity: 0; }
         }
-
         .container {
-            width: 100%;
-            max-width: 700px;
-            animation: fadeIn 0.6s ease-out;
-            position: relative;
-            z-index: 20;
+            width: 100%; max-width: 700px; animation: fadeIn 0.6s ease-out; position: relative; z-index: 20;
         }
-
         .product-card {
-            background: rgba(20, 0, 0, 0.6);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 69, 0, 0.3);
-            border-radius: 30px;
-            padding: 30px 20px;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.8), 0 0 30px rgba(255, 69, 0, 0.2);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            position: relative;
-            overflow: hidden;
+            background: rgba(20,0,0,0.6); backdrop-filter: blur(10px); border: 1px solid rgba(255,69,0,0.3);
+            border-radius: 30px; padding: 30px 20px; box-shadow: 0 20px 40px rgba(0,0,0,0.8), 0 0 30px rgba(255,69,0,0.2);
+            position: relative; overflow: hidden;
         }
-
         .product-card::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: radial-gradient(circle, rgba(255, 69, 0, 0.1) 0%, transparent 70%);
+            content: ''; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%;
+            background: radial-gradient(circle, rgba(255,69,0,0.1) 0%, transparent 70%);
             animation: rotate 20s linear infinite;
         }
-
-        .store-name {
-            text-align: center;
-            margin-bottom: 25px;
-            position: relative;
-            z-index: 1;
-        }
-
+        .store-name { text-align: center; margin-bottom: 25px; position: relative; z-index: 1; }
         .store-name h1 {
-            font-family: 'Bebas Neue', cursive;
-            color: #ff4500;
-            font-size: 3.2em;
-            font-weight: 800;
-            letter-spacing: 3px;
-            text-shadow: 0 0 20px rgba(255, 69, 0, 0.5), 0 0 40px #a00;
-            animation: glowPulse 2s infinite;
-            text-transform: uppercase;
-            line-height: 1.1;
-            word-break: break-word;
+            font-family: 'Bebas Neue', cursive; color: #ff4500; font-size: 3.2em; font-weight: 800;
+            letter-spacing: 3px; text-shadow: 0 0 20px rgba(255,69,0,0.5), 0 0 40px #a00;
+            animation: glowPulse 2s infinite; text-transform: uppercase; line-height: 1.1;
         }
-
         .store-name h1 span {
-            color: #ff8c00;
-            display: block;
-            font-size: 0.45em;
-            letter-spacing: 4px;
-            margin-top: 5px;
-            font-family: 'Poppins', sans-serif;
-            font-weight: 300;
-            text-transform: uppercase;
+            color: #ff8c00; display: block; font-size: 0.45em; letter-spacing: 4px; margin-top: 5px;
+            font-family: 'Poppins', sans-serif; font-weight: 300; text-transform: uppercase;
         }
-
+        .admin-link-btn {
+            position: absolute; top: 20px; right: 20px; background: linear-gradient(45deg, #ff4500, #ff8c00);
+            border: none; border-radius: 50px; padding: 10px 20px; color: #fff; font-weight: 600;
+            cursor: pointer; z-index: 100; font-size: 0.9em; text-transform: uppercase; text-decoration: none;
+            box-shadow: 0 0 20px rgba(255,69,0,0.3); transition: all 0.3s ease;
+        }
+        .admin-link-btn:hover { transform: scale(1.05); box-shadow: 0 0 30px #ff4500; }
         .category-tabs {
-            display: flex;
-            gap: 8px;
-            margin-bottom: 25px;
-            position: relative;
-            z-index: 1;
-            flex-wrap: wrap;
-            justify-content: center;
+            display: flex; gap: 8px; margin-bottom: 25px; flex-wrap: wrap; justify-content: center;
         }
-
         .tab-button {
-            flex: 1;
-            min-width: 100px;
-            padding: 12px 8px;
-            background: rgba(180, 0, 0, 0.2);
-            border: 2px solid rgba(255, 69, 0, 0.3);
-            border-radius: 12px;
-            color: #eee;
-            font-size: 0.9em;
-            font-weight: 600;
-            cursor: pointer;
+            flex: 1; min-width: 100px; padding: 12px 8px; background: rgba(180,0,0,0.2);
+            border: 2px solid rgba(255,69,0,0.3); border-radius: 12px; color: #eee; font-size: 0.9em;
+            font-weight: 600; cursor: pointer; text-transform: uppercase; backdrop-filter: blur(5px);
             transition: all 0.3s ease;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            font-family: 'Poppins', sans-serif;
-            backdrop-filter: blur(5px);
-            -webkit-backdrop-filter: blur(5px);
-            white-space: nowrap;
         }
-
         .tab-button:hover {
-            background: rgba(255, 69, 0, 0.3);
-            border-color: #ff4500;
-            color: #fff;
-            transform: translateY(-2px);
+            background: rgba(255,69,0,0.3); border-color: #ff4500; color: #fff; transform: translateY(-2px);
         }
-
         .tab-button.active {
-            background: linear-gradient(45deg, #ff4500, #ff8c00);
-            border-color: transparent;
-            box-shadow: 0 5px 20px rgba(255, 69, 0, 0.4);
-            color: #fff;
+            background: linear-gradient(45deg, #ff4500, #ff8c00); border-color: transparent;
+            box-shadow: 0 5px 20px rgba(255,69,0,0.4); color: #fff;
         }
-
-        .product-section {
-            display: none;
-            position: relative;
-            z-index: 1;
-        }
-
-        .product-section.active {
-            display: block;
-            animation: fadeIn 0.5s ease;
-        }
-
+        .product-section { display: none; }
+        .product-section.active { display: block; animation: fadeIn 0.5s ease; }
         .section-title {
-            color: #ff8c00;
-            font-size: 1.6em;
-            margin-bottom: 15px;
-            text-align: center;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            font-family: 'Bebas Neue', cursive;
-            border-left: 4px solid #ff4500;
-            padding-left: 10px;
+            color: #ff8c00; font-size: 1.6em; margin-bottom: 15px; text-align: center; text-transform: uppercase;
+            font-family: 'Bebas Neue', cursive; border-left: 4px solid #ff4500; padding-left: 10px;
         }
-
         .product-list {
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-            margin-bottom: 20px;
-            max-height: 350px;
-            overflow-y: auto;
-            padding-right: 8px;
+            display: flex; flex-direction: column; gap: 12px; max-height: 350px; overflow-y: auto; padding-right: 8px;
         }
-
-        .product-list::-webkit-scrollbar {
-            width: 6px;
-        }
-
-        .product-list::-webkit-scrollbar-track {
-            background: rgba(255, 69, 0, 0.1);
-            border-radius: 10px;
-        }
-
-        .product-list::-webkit-scrollbar-thumb {
-            background: #ff4500;
-            border-radius: 10px;
-            box-shadow: 0 0 10px #ff4500;
-        }
-
+        .product-list::-webkit-scrollbar { width: 6px; }
+        .product-list::-webkit-scrollbar-track { background: rgba(255,69,0,0.1); border-radius: 10px; }
+        .product-list::-webkit-scrollbar-thumb { background: #ff4500; border-radius: 10px; }
         .product-item {
-            background: rgba(20, 0, 0, 0.5);
-            backdrop-filter: blur(5px);
-            -webkit-backdrop-filter: blur(5px);
-            border: 1px solid rgba(255, 69, 0, 0.3);
-            border-radius: 12px;
-            padding: 15px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
+            background: rgba(20,0,0,0.5); backdrop-filter: blur(5px); border: 1px solid rgba(255,69,0,0.3);
+            border-radius: 12px; padding: 15px; cursor: pointer; transition: all 0.3s ease;
         }
-
-        .product-item::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 69, 0, 0.1), transparent);
-            transition: left 0.5s ease;
-        }
-
-        .product-item:hover::before {
-            left: 100%;
-        }
-
         .product-item:hover {
-            background: rgba(180, 0, 0, 0.3);
-            border-color: #ff4500;
-            transform: translateX(5px) translateY(-2px);
-            box-shadow: 0 10px 20px rgba(255, 69, 0, 0.2);
+            background: rgba(180,0,0,0.3); border-color: #ff4500; transform: translateX(5px);
         }
-
         .product-item.selected {
-            background: rgba(255, 69, 0, 0.2);
-            border-color: #ff4500;
-            box-shadow: 0 0 30px rgba(255, 69, 0, 0.3);
+            background: rgba(255,69,0,0.2); border-color: #ff4500; box-shadow: 0 0 30px rgba(255,69,0,0.3);
         }
-
         .product-item-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 6px;
-            flex-wrap: wrap;
-            gap: 5px;
+            display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px; flex-wrap: wrap;
         }
-
         .product-item-header h3 {
-            color: #fff;
-            font-size: 1.2em;
-            font-weight: 600;
-            font-family: 'Bebas Neue', cursive;
-            letter-spacing: 1px;
+            color: #fff; font-size: 1.2em; font-weight: 600; font-family: 'Bebas Neue', cursive;
         }
-
         .product-item-price {
-            color: #ff4500;
-            font-size: 1.4em;
-            font-weight: 700;
-            text-shadow: 0 0 10px rgba(255, 69, 0, 0.3);
+            color: #ff4500; font-size: 1.4em; font-weight: 700; text-shadow: 0 0 10px rgba(255,69,0,0.3);
         }
-
-        .product-item-description {
-            color: #ccc;
-            font-size: 0.85em;
-            line-height: 1.4;
-        }
-
+        .product-item-description { color: #ccc; font-size: 0.85em; }
         .chance-badge {
-            display: inline-block;
-            background: rgba(255, 69, 0, 0.3);
-            color: #ff8c00;
-            padding: 3px 10px;
-            border-radius: 30px;
-            font-size: 0.75em;
-            margin-top: 6px;
-            border: 1px solid #ff4500;
-            font-weight: 600;
+            display: inline-block; background: rgba(255,69,0,0.3); color: #ff8c00; padding: 3px 10px;
+            border-radius: 30px; font-size: 0.75em; margin-top: 6px; border: 1px solid #ff4500;
         }
-
         .coin-calculator {
-            background: rgba(20, 0, 0, 0.5);
-            backdrop-filter: blur(5px);
-            -webkit-backdrop-filter: blur(5px);
-            border-radius: 20px;
-            padding: 20px;
-            margin-bottom: 20px;
-            border: 1px solid rgba(255, 69, 0, 0.3);
+            background: rgba(20,0,0,0.5); backdrop-filter: blur(5px); border-radius: 20px; padding: 20px;
+            border: 1px solid rgba(255,69,0,0.3);
         }
-
         .coin-calculator label {
-            display: block;
-            color: #ff8c00;
-            margin-bottom: 12px;
-            font-size: 1.1em;
-            font-weight: 600;
+            display: block; color: #ff8c00; margin-bottom: 12px; font-size: 1.1em; font-weight: 600;
             text-transform: uppercase;
-            letter-spacing: 1px;
         }
-
         .coin-input-group {
-            display: flex;
-            gap: 8px;
-            align-items: center;
-            margin-bottom: 15px;
-            background: rgba(0, 0, 0, 0.3);
-            border-radius: 50px;
-            border: 1px solid rgba(255, 69, 0, 0.3);
-            padding: 3px;
+            display: flex; gap: 8px; align-items: center; margin-bottom: 15px; background: rgba(0,0,0,0.3);
+            border-radius: 50px; border: 1px solid rgba(255,69,0,0.3); padding: 3px;
         }
-
         .coin-input-group input {
-            flex: 1;
-            padding: 12px 15px;
-            background: transparent;
-            border: none;
-            color: #fff;
-            font-size: 1.2em;
-            font-weight: 600;
-            min-width: 0;
-            width: 100%;
+            flex: 1; padding: 12px 15px; background: transparent; border: none; color: #fff; font-size: 1.2em;
+            font-weight: 600; min-width: 0;
         }
-
-        .coin-input-group input:focus {
-            outline: none;
-        }
-
+        .coin-input-group input:focus { outline: none; }
         .coin-input-group span {
-            padding: 0 15px;
-            color: #ff8c00;
-            font-size: 1.1em;
-            font-weight: 600;
-            border-left: 1px solid rgba(255, 69, 0, 0.3);
-            white-space: nowrap;
+            padding: 0 15px; color: #ff8c00; font-size: 1.1em; font-weight: 600;
+            border-left: 1px solid rgba(255,69,0,0.3);
         }
-
         .coin-result {
-            text-align: center;
-            padding: 15px;
-            background: linear-gradient(135deg, rgba(255, 69, 0, 0.1), rgba(255, 140, 0, 0.1));
-            border-radius: 15px;
-            border: 1px solid rgba(255, 69, 0, 0.3);
+            text-align: center; padding: 15px; background: linear-gradient(135deg, rgba(255,69,0,0.1), rgba(255,140,0,0.1));
+            border-radius: 15px; border: 1px solid rgba(255,69,0,0.3);
         }
-
         .coin-result .price {
-            color: #ff4500;
-            font-size: 2.2em;
-            font-weight: 800;
-            text-shadow: 0 0 20px rgba(255, 69, 0, 0.3);
+            color: #ff4500; font-size: 2.2em; font-weight: 800; text-shadow: 0 0 20px rgba(255,69,0,0.3);
         }
-
-        .coin-result .info {
-            color: #aaa;
-            margin-top: 5px;
-            font-size: 0.85em;
-        }
-
+        .coin-result .info { color: #aaa; margin-top: 5px; font-size: 0.85em; }
         .buy-button {
-            width: 100%;
-            padding: 16px;
-            background: linear-gradient(45deg, #ff4500, #ff8c00);
-            border: none;
-            border-radius: 50px;
-            color: #fff;
-            font-size: 1.2em;
-            font-weight: 700;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            box-shadow: 0 10px 30px -5px rgba(255, 69, 0, 0.4);
-            position: relative;
-            z-index: 1;
-            overflow: hidden;
+            width: 100%; padding: 16px; background: linear-gradient(45deg, #ff4500, #ff8c00); border: none;
+            border-radius: 50px; color: #fff; font-size: 1.2em; font-weight: 700; cursor: pointer;
+            text-transform: uppercase; letter-spacing: 2px; box-shadow: 0 10px 30px -5px rgba(255,69,0,0.4);
+            margin-top: 20px; transition: all 0.3s ease;
         }
-
-        .buy-button::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-            transition: left 0.5s ease;
-        }
-
-        .buy-button:hover::before {
-            left: 100%;
-        }
-
-        .buy-button:hover {
-            transform: scale(1.02);
-            box-shadow: 0 15px 40px -5px #ff4500;
-        }
-
-        .buy-button:disabled {
-            opacity: 0.5;
-            cursor: not-allowed;
-            transform: none;
-            box-shadow: none;
-        }
-
-        .form-container {
-            margin-top: 25px;
-            max-height: 0;
-            opacity: 0;
-            overflow: hidden;
-            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-            position: relative;
-            z-index: 1;
-        }
-
-        .form-container.show {
-            max-height: 1200px;
-            opacity: 1;
-        }
-
-        .form-group {
-            margin-bottom: 15px;
-        }
-
-        .form-group label {
-            display: block;
-            color: #ff8c00;
-            margin-bottom: 6px;
-            font-size: 0.9em;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-
-        .form-group input, .form-group textarea {
-            width: 100%;
-            padding: 14px 16px;
-            background: rgba(0, 0, 0, 0.4);
-            border: 2px solid rgba(255, 69, 0, 0.3);
-            border-radius: 12px;
-            color: #fff;
-            font-size: 1em;
-            transition: all 0.3s ease;
-            backdrop-filter: blur(5px);
-            -webkit-backdrop-filter: blur(5px);
-        }
-
-        .form-group input:focus, .form-group textarea:focus {
-            outline: none;
-            border-color: #ff4500;
-            background: rgba(255, 69, 0, 0.1);
-            box-shadow: 0 0 30px rgba(255, 69, 0, 0.2);
-        }
-
-        .form-group input::placeholder, .form-group textarea::placeholder {
-            color: rgba(255, 255, 255, 0.3);
-            font-size: 0.9em;
-        }
-
-        .submit-button {
-            width: 100%;
-            padding: 14px;
-            background: linear-gradient(45deg, #ff4500, #ff8c00);
-            border: none;
-            border-radius: 50px;
-            color: #fff;
-            font-size: 1.1em;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            margin-top: 5px;
-        }
-
-        .submit-button:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 30px -5px #ff4500;
-        }
-
+        .buy-button:hover { transform: scale(1.02); box-shadow: 0 15px 40px -5px #ff4500; }
+        .buy-button:disabled { opacity: 0.5; cursor: not-allowed; }
         .selected-product-info {
-            background: linear-gradient(135deg, rgba(255, 69, 0, 0.15), rgba(255, 140, 0, 0.05));
-            border-radius: 20px;
-            padding: 18px;
-            margin-bottom: 20px;
-            text-align: center;
-            border: 1px solid #ff4500;
-            backdrop-filter: blur(5px);
-            -webkit-backdrop-filter: blur(5px);
+            background: linear-gradient(135deg, rgba(255,69,0,0.15), rgba(255,140,0,0.05)); border-radius: 20px;
+            padding: 18px; margin: 20px 0; text-align: center; border: 1px solid #ff4500;
         }
-
-        .selected-product-info h3 {
-            color: #fff;
-            font-size: 1.2em;
-            margin-bottom: 8px;
-            font-family: 'Bebas Neue', cursive;
-            letter-spacing: 1px;
-        }
-
         .selected-product-info .price {
-            color: #ff4500;
-            font-size: 2em;
-            font-weight: 800;
-            text-shadow: 0 0 15px rgba(255, 69, 0, 0.3);
+            color: #ff4500; font-size: 2em; font-weight: 800; text-shadow: 0 0 15px rgba(255,69,0,0.3);
         }
-
-        .selected-product-info .description {
-            color: #aaa;
-            margin-top: 8px;
-            font-size: 0.9em;
+        .form-container {
+            max-height: 0; opacity: 0; overflow: hidden; transition: all 0.5s ease; margin-top: 25px;
         }
-
+        .form-container.show { max-height: 1200px; opacity: 1; }
+        .form-group { margin-bottom: 15px; }
+        .form-group label {
+            display: block; color: #ff8c00; margin-bottom: 6px; font-size: 0.9em; font-weight: 600;
+            text-transform: uppercase;
+        }
+        .form-group input, .form-group textarea {
+            width: 100%; padding: 14px 16px; background: rgba(0,0,0,0.4); border: 2px solid rgba(255,69,0,0.3);
+            border-radius: 12px; color: #fff; font-size: 1em; transition: all 0.3s ease;
+        }
+        .form-group input:focus, .form-group textarea:focus {
+            outline: none; border-color: #ff4500; background: rgba(255,69,0,0.1);
+        }
+        .submit-button {
+            width: 100%; padding: 14px; background: linear-gradient(45deg, #ff4500, #ff8c00); border: none;
+            border-radius: 50px; color: #fff; font-size: 1.1em; font-weight: 600; cursor: pointer;
+            text-transform: uppercase; margin-top: 5px;
+        }
         .pix-container {
-            background: linear-gradient(135deg, rgba(255, 69, 0, 0.15), rgba(255, 140, 0, 0.05));
-            border-radius: 20px;
-            padding: 20px;
-            margin-bottom: 15px;
-            text-align: center;
-            border: 2px solid #ff4500;
-            backdrop-filter: blur(5px);
-            -webkit-backdrop-filter: blur(5px);
+            background: linear-gradient(135deg, rgba(255,69,0,0.15), rgba(255,140,0,0.05)); border-radius: 20px;
+            padding: 20px; margin: 15px 0; text-align: center; border: 2px solid #ff4500;
         }
-
-        .pix-container h3 {
-            color: #ff8c00;
-            font-size: 1.4em;
-            margin-bottom: 12px;
-            text-transform: uppercase;
-            font-family: 'Bebas Neue', cursive;
-            letter-spacing: 2px;
-        }
-
-        .pix-value {
-            color: #ff4500;
-            font-size: 2.5em;
-            font-weight: 800;
-            margin-bottom: 15px;
-            text-shadow: 0 0 20px rgba(255, 69, 0, 0.5);
-            word-break: break-word;
-        }
-
+        .pix-value { color: #ff4500; font-size: 2.5em; font-weight: 800; margin-bottom: 15px; }
         .pix-key {
-            background: rgba(0, 0, 0, 0.4);
-            padding: 12px;
-            border-radius: 12px;
-            font-family: monospace;
-            font-size: 1em;
-            color: #ff8c00;
-            word-break: break-all;
-            border: 2px dashed #ff4500;
-            margin-bottom: 12px;
+            background: rgba(0,0,0,0.4); padding: 12px; border-radius: 12px; font-family: monospace;
+            color: #ff8c00; word-break: break-all; border: 2px dashed #ff4500; margin-bottom: 12px;
         }
-
         .copy-button {
-            background: rgba(255, 69, 0, 0.2);
-            border: 2px solid #ff4500;
-            color: #fff;
-            padding: 10px 20px;
-            border-radius: 50px;
-            font-size: 0.95em;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            text-transform: uppercase;
-            letter-spacing: 1px;
+            background: rgba(255,69,0,0.2); border: 2px solid #ff4500; color: #fff; padding: 10px 20px;
+            border-radius: 50px; font-weight: 600; cursor: pointer; transition: all 0.3s ease;
         }
-
-        .copy-button:hover {
-            background: #ff4500;
-            transform: scale(1.05);
-            box-shadow: 0 5px 20px #ff4500;
-        }
-
-        .confirm-section {
-            display: none;
-            animation: fadeIn 0.5s ease;
-        }
-
-        .confirm-section.show {
-            display: block;
-        }
-
+        .copy-button:hover { background: #ff4500; }
+        .confirm-section { display: none; }
+        .confirm-section.show { display: block; }
         .confirm-button {
-            width: 100%;
-            padding: 14px;
-            background: linear-gradient(45deg, #00a86b, #00c853);
-            border: none;
-            border-radius: 50px;
-            color: #fff;
-            font-size: 1.1em;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            margin-top: 5px;
+            width: 100%; padding: 14px; background: linear-gradient(45deg, #00a86b, #00c853); border: none;
+            border-radius: 50px; color: #fff; font-weight: 600; cursor: pointer; margin-top: 10px;
         }
-
-        .confirm-button:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 30px -5px #00c853;
-        }
-
-        .file-upload {
-            margin: 15px 0;
-        }
-
-        .file-upload label {
-            display: block;
-            color: #ff8c00;
-            margin-bottom: 6px;
-            font-size: 0.9em;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-
+        .file-upload { margin: 15px 0; }
         .file-upload input[type="file"] {
-            width: 100%;
-            padding: 12px;
-            background: rgba(0, 0, 0, 0.4);
-            border: 2px solid rgba(255, 69, 0, 0.3);
-            border-radius: 12px;
-            color: #fff;
-            cursor: pointer;
-            font-size: 0.9em;
+            width: 100%; padding: 12px; background: rgba(0,0,0,0.4); border: 2px solid rgba(255,69,0,0.3);
+            border-radius: 12px; color: #fff;
         }
-
-        .file-upload input[type="file"]::file-selector-button {
-            background: #ff4500;
-            border: none;
-            color: #fff;
-            padding: 6px 12px;
-            border-radius: 8px;
-            margin-right: 10px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            font-size: 0.9em;
-        }
-
-        .file-upload input[type="file"]::file-selector-button:hover {
-            background: #ff8c00;
-            transform: scale(1.05);
-        }
-
-        .waiting-section {
-            display: none;
-            animation: fadeIn 0.5s ease;
-            text-align: center;
-        }
-
-        .waiting-section.show {
-            display: block;
-        }
-
+        .waiting-section { display: none; text-align: center; }
+        .waiting-section.show { display: block; }
         .waiting-message {
-            background: linear-gradient(135deg, rgba(255, 69, 0, 0.15), rgba(255, 140, 0, 0.05));
-            border-radius: 20px;
-            padding: 25px;
-            margin-bottom: 15px;
-            border: 2px solid #ff4500;
-            backdrop-filter: blur(5px);
-            -webkit-backdrop-filter: blur(5px);
+            background: linear-gradient(135deg, rgba(255,69,0,0.15), rgba(255,140,0,0.05)); border-radius: 20px;
+            padding: 25px; border: 2px solid #ff4500;
         }
-
-        .waiting-message h3 {
-            color: #ff8c00;
-            font-size: 1.6em;
-            margin-bottom: 15px;
-            font-family: 'Bebas Neue', cursive;
-            letter-spacing: 2px;
-        }
-
-        .waiting-message p {
-            color: #fff;
-            font-size: 1.1em;
-            margin-bottom: 15px;
-        }
-
         .spinner {
-            width: 50px;
-            height: 50px;
-            border: 4px solid rgba(255, 69, 0, 0.3);
-            border-top-color: #ff4500;
-            border-radius: 50%;
-            animation: spin 1s linear infinite;
-            margin: 15px auto;
-            box-shadow: 0 0 20px #ff4500;
+            width: 50px; height: 50px; border: 4px solid rgba(255,69,0,0.3); border-top-color: #ff4500;
+            border-radius: 50%; animation: spin 1s linear infinite; margin: 15px auto;
         }
-
         .client-message {
-            background: linear-gradient(135deg, rgba(255, 69, 0, 0.15), rgba(255, 140, 0, 0.05));
-            border-radius: 20px;
-            padding: 20px;
-            margin: 15px 0;
-            text-align: center;
-            border: 2px solid #ff4500;
-            display: none;
-            backdrop-filter: blur(5px);
-            -webkit-backdrop-filter: blur(5px);
+            background: linear-gradient(135deg, rgba(255,69,0,0.15), rgba(255,140,0,0.05)); border-radius: 20px;
+            padding: 20px; text-align: center; border: 2px solid #ff4500; display: none;
         }
-
-        .client-message.show {
-            display: block;
-            animation: fadeIn 0.5s ease;
+        .client-message.show { display: block; }
+        .client-message.approved { background: rgba(0,200,0,0.15); border-color: #00c853; }
+        .client-message.approved h3 { color: #00c853; }
+        .client-message.rejected { background: rgba(255,0,0,0.15); border-color: #ff0000; }
+        .client-message.rejected h3 { color: #ff0000; }
+        .status-badge {
+            display: inline-block; padding: 5px 12px; border-radius: 30px; font-size: 0.85em; font-weight: 600;
         }
-
-        .client-message.approved {
-            background: rgba(0, 200, 0, 0.15);
-            border-color: #00c853;
-        }
-
-        .client-message.approved h3 {
-            color: #00c853;
-        }
-
-        .client-message.rejected {
-            background: rgba(255, 0, 0, 0.15);
-            border-color: #ff0000;
-        }
-
-        .client-message.rejected h3 {
-            color: #ff0000;
-        }
-
-        .client-message h3 {
-            color: #ff8c00;
-            font-size: 1.4em;
-            margin-bottom: 10px;
-            font-family: 'Bebas Neue', cursive;
-            letter-spacing: 1px;
-        }
-
-        .client-message p {
-            color: #fff;
-            font-size: 1em;
-        }
-
-        /* Painel Admin */
+        .status-badge.pending { background: rgba(255,165,0,0.2); color: orange; border: 1px solid orange; }
+        .status-badge.approved { background: rgba(0,200,0,0.2); color: #00c853; border: 1px solid #00c853; }
+        .status-badge.rejected { background: rgba(255,0,0,0.2); color: #ff0000; border: 1px solid #ff0000; }
         .admin-panel {
-            background: linear-gradient(135deg, rgba(255, 69, 0, 0.2), rgba(255, 140, 0, 0.1));
-            border-radius: 20px;
-            padding: 20px;
-            margin-top: 30px;
-            border: 3px solid #ff4500;
-            backdrop-filter: blur(5px);
-            -webkit-backdrop-filter: blur(5px);
+            background: linear-gradient(135deg, rgba(255,69,0,0.2), rgba(255,140,0,0.1)); border-radius: 20px;
+            padding: 20px; margin-top: 15px; border: 3px solid #ff4500;
         }
-
-        .admin-panel h3 {
-            color: #ff8c00;
-            font-size: 1.4em;
-            margin-bottom: 15px;
-            text-align: center;
-            font-family: 'Bebas Neue', cursive;
-            letter-spacing: 2px;
-        }
-
-        .admin-buttons {
-            display: flex;
-            gap: 10px;
-            justify-content: center;
-            flex-wrap: wrap;
-            margin-top: 15px;
-        }
-
-        .admin-button {
-            flex: 1;
-            min-width: 120px;
-            padding: 12px;
-            border: none;
-            border-radius: 10px;
-            font-size: 1em;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-
-        .admin-button.approve {
-            background: linear-gradient(45deg, #00a86b, #00c853);
-            color: #fff;
-        }
-
-        .admin-button.approve:hover {
-            transform: scale(1.05);
-            box-shadow: 0 5px 20px #00c853;
-        }
-
-        .admin-button.reject {
-            background: linear-gradient(45deg, #dc143c, #ff0000);
-            color: #fff;
-        }
-
-        .admin-button.reject:hover {
-            transform: scale(1.05);
-            box-shadow: 0 5px 20px #ff0000;
-        }
-
-        .admin-info {
-            background: rgba(0, 0, 0, 0.4);
-            border-radius: 10px;
-            padding: 15px;
-            margin-bottom: 15px;
-            text-align: left;
-            border: 1px solid rgba(255, 69, 0, 0.3);
-        }
-
-        .admin-info p {
-            color: #fff;
-            margin: 8px 0;
-            font-size: 0.95em;
-        }
-
-        .admin-info strong {
-            color: #ff8c00;
-        }
-
-        .transactions-list {
-            max-height: 400px;
-            overflow-y: auto;
-            margin-bottom: 20px;
-        }
-
+        .transactions-list { max-height: 400px; overflow-y: auto; margin: 15px 0; }
         .transaction-item {
-            background: rgba(0, 0, 0, 0.3);
-            border: 1px solid #ff4500;
-            border-radius: 10px;
-            padding: 15px;
-            margin-bottom: 10px;
-            cursor: pointer;
-            transition: all 0.3s ease;
+            background: rgba(0,0,0,0.3); border: 1px solid #ff4500; border-radius: 10px; padding: 15px;
+            margin-bottom: 10px; cursor: pointer;
         }
-
-        .transaction-item:hover {
-            background: rgba(255, 69, 0, 0.2);
-            transform: translateX(5px);
-        }
-
-        .transaction-item.selected {
-            background: rgba(255, 69, 0, 0.3);
-            border: 2px solid #ff8c00;
-        }
-
-        .transaction-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 8px;
-        }
-
-        .transaction-id {
-            color: #ff8c00;
-            font-weight: 600;
-            font-size: 0.9em;
-        }
-
-        .transaction-status {
-            padding: 3px 8px;
-            border-radius: 20px;
-            font-size: 0.8em;
-            font-weight: 600;
-        }
-
-        .status-pending {
-            background: rgba(255, 165, 0, 0.2);
-            color: orange;
-            border: 1px solid orange;
-        }
-
-        .status-approved {
-            background: rgba(0, 200, 0, 0.2);
-            color: #00c853;
-            border: 1px solid #00c853;
-        }
-
-        .status-rejected {
-            background: rgba(255, 0, 0, 0.2);
-            color: #ff0000;
-            border: 1px solid #ff0000;
-        }
-
-        .status-badge.pending {
-            background: rgba(255, 165, 0, 0.2);
-            color: orange;
-            padding: 5px 10px;
-            border-radius: 20px;
-        }
-
-        .status-badge.approved {
-            background: rgba(0, 200, 0, 0.2);
-            color: #00c853;
-            padding: 5px 10px;
-            border-radius: 20px;
-        }
-
-        .status-badge.rejected {
-            background: rgba(255, 0, 0, 0.2);
-            color: #ff0000;
-            padding: 5px 10px;
-            border-radius: 20px;
-        }
-
-        .transaction-detail {
-            color: #ccc;
-            font-size: 0.85em;
-        }
-
-        .transaction-detail span {
-            color: #fff;
-            font-weight: 600;
-        }
-
-        .admin-logout {
-            background: rgba(255, 0, 0, 0.2);
-            border: 1px solid #ff0000;
-            color: #ff0000;
-            padding: 8px 15px;
-            border-radius: 50px;
-            cursor: pointer;
-            font-weight: 600;
-            margin-top: 10px;
-            text-align: center;
-            transition: all 0.3s ease;
-        }
-
-        .admin-logout:hover {
-            background: #ff0000;
-            color: #fff;
-        }
-
-        .admin-stats {
-            display: flex;
-            justify-content: space-around;
-            margin-bottom: 20px;
-            flex-wrap: wrap;
-            gap: 10px;
-        }
-
-        .stat-box {
-            background: rgba(255, 69, 0, 0.2);
-            border: 1px solid #ff4500;
-            border-radius: 10px;
-            padding: 15px;
-            flex: 1;
-            min-width: 100px;
-            text-align: center;
-        }
-
-        .stat-value {
-            color: #ff8c00;
-            font-size: 1.8em;
-            font-weight: 800;
-        }
-
-        .stat-label {
-            color: #fff;
-            font-size: 0.8em;
+        .transaction-item:hover { background: rgba(255,69,0,0.2); }
+        .transaction-item.selected { background: rgba(255,69,0,0.3); border: 2px solid #ff8c00; }
+        .transaction-header { display: flex; justify-content: space-between; margin-bottom: 8px; }
+        .transaction-id { color: #ff8c00; font-weight: 600; }
+        .admin-buttons { display: flex; gap: 10px; margin-top: 15px; }
+        .admin-button {
+            flex: 1; padding: 12px; border: none; border-radius: 10px; font-weight: 600; cursor: pointer;
             text-transform: uppercase;
         }
-
-        .admin-filters {
-            display: flex;
-            gap: 10px;
-            margin-bottom: 15px;
-            flex-wrap: wrap;
-        }
-
-        .filter-button {
-            flex: 1;
-            padding: 8px;
-            background: rgba(255, 69, 0, 0.2);
-            border: 1px solid #ff4500;
-            border-radius: 20px;
-            color: #fff;
-            cursor: pointer;
-            font-size: 0.8em;
-            transition: all 0.3s ease;
-        }
-
-        .filter-button:hover {
-            background: rgba(255, 69, 0, 0.4);
-        }
-
-        .filter-button.active {
-            background: #ff4500;
-            border-color: #ff4500;
-        }
-
-        .search-box {
-            width: 100%;
-            padding: 10px;
-            margin-bottom: 15px;
-            background: rgba(0, 0, 0, 0.4);
-            border: 2px solid #ff4500;
-            border-radius: 50px;
-            color: #fff;
-            font-size: 0.9em;
-        }
-
-        .search-box:focus {
-            outline: none;
-            box-shadow: 0 0 20px rgba(255, 69, 0, 0.3);
-        }
-
-        .image-preview {
-            max-width: 100%;
-            margin: 10px 0;
-            border: 2px solid #ff4500;
-            border-radius: 10px;
-            overflow: hidden;
-        }
-
-        .image-preview img {
-            width: 100%;
-            height: auto;
-            cursor: pointer;
-        }
-
-        .modal {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.9);
-            z-index: 10000;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 20px;
-        }
-
-        .modal-content {
-            max-width: 90%;
-            max-height: 90%;
-        }
-
-        .modal-content img {
-            width: 100%;
-            height: 100%;
-            object-fit: contain;
-        }
-
-        .modal-close {
-            position: absolute;
-            top: 20px;
-            right: 20px;
-            color: #fff;
-            font-size: 2em;
-            cursor: pointer;
-        }
-
-        .loading-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.8);
-            backdrop-filter: blur(5px);
-            z-index: 10000;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            flex-direction: column;
-        }
-        
-        .loading-spinner {
-            width: 60px;
-            height: 60px;
-            border: 5px solid rgba(255, 69, 0, 0.3);
-            border-top-color: #ff4500;
-            border-radius: 50%;
-            animation: spin 1s linear infinite;
-            margin-bottom: 20px;
-        }
-        
-        .loading-text {
-            color: #ff8c00;
-            font-size: 1.2em;
-            font-weight: 600;
-        }
-
-        .admin-link-modal {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.95);
-            backdrop-filter: blur(5px);
-            z-index: 10001;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 15px;
-        }
-
-        .admin-link-box {
-            background: linear-gradient(135deg, #1a0000, #2a0000);
-            border: 3px solid #ff4500;
-            border-radius: 30px;
-            padding: 25px;
-            max-width: 500px;
-            width: 100%;
-            text-align: center;
-            box-shadow: 0 0 50px rgba(255, 69, 0, 0.3);
-        }
-
-        .admin-link-box h2 {
-            color: #ff4500;
-            font-family: 'Bebas Neue', cursive;
-            font-size: 2.2em;
-            margin-bottom: 15px;
-            text-transform: uppercase;
-        }
-
-        .admin-link-box .link-container {
-            background: #000;
-            padding: 15px;
-            border-radius: 10px;
-            margin-bottom: 15px;
-            border: 2px solid #ff4500;
-            word-break: break-all;
-        }
-
-        .admin-link-box code {
-            color: #ff8c00;
-            font-size: 0.9em;
-        }
-
-        .admin-link-box .button-group {
-            display: flex;
-            gap: 10px;
-        }
-
-        .admin-link-box button {
-            flex: 1;
-            padding: 12px;
-            border: none;
-            border-radius: 10px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .admin-link-box .copy-btn {
-            background: #ff4500;
-            color: #fff;
-        }
-
-        .admin-link-box .copy-btn:hover {
-            transform: scale(1.05);
-            box-shadow: 0 5px 20px #ff4500;
-        }
-
-        .admin-link-box .close-btn {
-            background: #333;
-            color: #fff;
-        }
-
-        .admin-link-box .close-btn:hover {
-            background: #444;
-        }
-
-        .admin-link-box .info-text {
-            color: #999;
-            margin-top: 15px;
-            font-size: 0.85em;
-        }
-
-        @keyframes spin {
-            to { transform: rotate(360deg); }
-        }
-
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
+        .admin-button.approve { background: linear-gradient(45deg, #00a86b, #00c853); color: #fff; }
+        .admin-button.reject { background: linear-gradient(45deg, #dc143c, #ff0000); color: #fff; }
+        @keyframes spin { to { transform: rotate(360deg); } }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
         @keyframes glowPulse {
-            0% { text-shadow: 0 0 20px rgba(255, 69, 0, 0.5), 0 0 40px #a00; }
-            50% { text-shadow: 0 0 30px rgba(255, 69, 0, 0.8), 0 0 60px #f00; }
-            100% { text-shadow: 0 0 20px rgba(255, 69, 0, 0.5), 0 0 40px #a00; }
+            0% { text-shadow: 0 0 20px rgba(255,69,0,0.5), 0 0 40px #a00; }
+            50% { text-shadow: 0 0 30px rgba(255,69,0,0.8), 0 0 60px #f00; }
+            100% { text-shadow: 0 0 20px rgba(255,69,0,0.5), 0 0 40px #a00; }
         }
-
-        @keyframes rotate {
-            from { transform: rotate(0deg); }
-            to { transform: rotate(360deg); }
-        }
-
+        @keyframes rotate { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
         @media (max-width: 480px) {
-            body { padding: 10px; }
-            .product-card { padding: 20px 15px; }
             .store-name h1 { font-size: 2.5em; }
-            .store-name h1 span { font-size: 0.4em; letter-spacing: 3px; }
-            .tab-button { min-width: calc(50% - 5px); font-size: 0.8em; padding: 10px 5px; white-space: normal; }
-            .section-title { font-size: 1.4em; }
-            .product-item-header h3 { font-size: 1.1em; }
-            .product-item-price { font-size: 1.2em; }
-            .coin-input-group input { font-size: 1em; padding: 10px 12px; }
-            .coin-input-group span { padding: 0 10px; font-size: 1em; }
-            .coin-result .price { font-size: 1.8em; }
-            .pix-value { font-size: 2em; }
-            .pix-key { font-size: 0.9em; padding: 10px; }
-            .admin-buttons { flex-direction: column; }
-            .admin-button { width: 100%; }
-            .admin-link-box h2 { font-size: 1.8em; }
-            .admin-link-box .link-container { padding: 10px; }
-            .admin-link-box code { font-size: 0.8em; }
+            .tab-button { min-width: calc(50% - 5px); font-size: 0.8em; }
         }
     </style>
 </head>
@@ -1255,6 +286,8 @@
 
     <div class="container">
         <div class="product-card">
+            <a href="#admin" class="admin-link-btn" id="adminAccessBtn">🔐 Admin</a>
+            
             <div class="store-name">
                 <h1>FATAL FURY<br><span>Loja Oficial</span></h1>
             </div>
@@ -1364,19 +397,19 @@
                 <form id="purchaseForm">
                     <div class="form-group">
                         <label for="nick">🎮 Nome no Jogo</label>
-                        <input type="text" id="nick" name="nick" placeholder="Seu nick no SA-MP" required>
+                        <input type="text" id="nick" required>
                     </div>
                     <div class="form-group">
                         <label for="discord">💬 Discord</label>
-                        <input type="text" id="discord" name="discord" placeholder="usuario#0000" required>
+                        <input type="text" id="discord" placeholder="usuario#0000" required>
                     </div>
                     <div class="form-group">
-                        <label for="telefone">📱 Número de Telefone</label>
-                        <input type="tel" id="telefone" name="telefone" placeholder="(00) 00000-0000" maxlength="15" required>
+                        <label for="telefone">📱 Telefone</label>
+                        <input type="tel" id="telefone" placeholder="(00) 00000-0000" maxlength="15" required>
                     </div>
                     <div class="form-group">
                         <label for="gmail">📧 Gmail</label>
-                        <input type="email" id="gmail" name="gmail" placeholder="seuemail@gmail.com" required>
+                        <input type="email" id="gmail" placeholder="seuemail@gmail.com" required>
                     </div>
                     <button type="submit" class="submit-button">Gerar PIX</button>
                 </form>
@@ -1393,8 +426,8 @@
                         <input type="file" id="comprovante" accept="image/*,.pdf">
                     </div>
                     <div class="form-group">
-                        <label>💬 Mensagem (opcional)</label>
-                        <textarea id="mensagem" placeholder="Digite uma mensagem sobre o pagamento..."></textarea>
+                        <label>💬 Mensagem</label>
+                        <textarea id="mensagem" placeholder="Opcional..."></textarea>
                     </div>
                     <button class="confirm-button" id="confirmPayment">Enviar Comprovante</button>
                 </div>
@@ -1403,8 +436,8 @@
                     <div class="waiting-message">
                         <h3>Pagamento em análise</h3>
                         <div class="spinner"></div>
-                        <p>Aguarde, nossa equipe está revisando o pagamento</p>
-                        <div id="paymentStatus" class="status-badge pending">Aguardando confirmação</div>
+                        <p>Aguardando confirmação da equipe</p>
+                        <div id="paymentStatus" class="status-badge pending">Aguardando</div>
                     </div>
                 </div>
 
@@ -1414,742 +447,412 @@
                 </div>
             </div>
 
-            <!-- Painel Admin (será preenchido via JavaScript quando necessário) -->
-            <div id="adminPanel" style="display: none;"></div>
+            <div id="adminPanel" style="display: none; margin-top: 30px;">
+                <div class="admin-panel">
+                    <h3>⚡ Painel Administrativo</h3>
+                    <div class="transactions-list" id="transactionsList">
+                        <p>Carregando transações...</p>
+                    </div>
+                    <div id="adminTransactionDetail" style="display: none;">
+                        <div class="admin-info" id="adminTransactionInfo"></div>
+                        <div class="admin-buttons">
+                            <button class="admin-button approve" id="approvePayment">✅ Aprovar</button>
+                            <button class="admin-button reject" id="rejectPayment">❌ Recusar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 
     <script>
-        const DISCORD_WEBHOOK_URL = 'https://discord.com/api/webhooks/1476637616656089118/z-VZQyYlxLE4eMezP6eFJBPfZ4Q4yl71bHZpB8zR6238TMM_dhsvw-JnJ_aVpMTeGLzS';
+        const DISCORD_WEBHOOK = 'https://discord.com/api/webhooks/1476637616656089118/z-VZQyYlxLE4eMezP6eFJBPfZ4Q4yl71bHZpB8zR6238TMM_dhsvw-JnJ_aVpMTeGLzS';
+        const CARGO_ID = '1476195111644692500';
         
         let currentProduct = null;
         let currentPrice = 0;
         let currentType = null;
-        let currentDescription = '';
+        let currentDesc = '';
         let currentTransactionId = null;
         let transactionData = null;
-        let statusCheckInterval = null;
-        let selectedTransaction = null;
-        let currentFilter = 'pending';
-        let searchTerm = '';
+        let statusInterval = null;
 
-        // Elementos
-        const tabCoins = document.getElementById('tabCoins');
-        const tabSkins = document.getElementById('tabSkins');
-        const tabCaixas = document.getElementById('tabCaixas');
-        const tabArmas = document.getElementById('tabArmas');
-        const coinsSection = document.getElementById('coinsSection');
-        const skinsSection = document.getElementById('skinsSection');
-        const caixasSection = document.getElementById('caixasSection');
-        const armasSection = document.getElementById('armasSection');
-        const buyButton = document.getElementById('buyButton');
-        const formContainer = document.getElementById('formContainer');
-        const purchaseForm = document.getElementById('purchaseForm');
-        const pixSection = document.getElementById('pixSection');
-        const waitingSection = document.getElementById('waitingSection');
-        const clientMessage = document.getElementById('clientMessage');
-        const clientMessageTitle = document.getElementById('clientMessageTitle');
-        const clientMessageText = document.getElementById('clientMessageText');
-        const telefoneInput = document.getElementById('telefone');
-        const coinAmount = document.getElementById('coinAmount');
-        const coinPrice = document.getElementById('coinPrice');
-        const selectedProductInfo = document.getElementById('selectedProductInfo');
-        const selectedProductName = document.getElementById('selectedProductName');
-        const selectedProductPrice = document.getElementById('selectedProductPrice');
-        const selectedProductDescription = document.getElementById('selectedProductDescription');
-        const pixValue = document.getElementById('pixValue');
-        const pixKey = document.getElementById('pixKey');
-        const copyPixKey = document.getElementById('copyPixKey');
-        const confirmPayment = document.getElementById('confirmPayment');
-        const comprovante = document.getElementById('comprovante');
-        const mensagem = document.getElementById('mensagem');
-        const paymentStatus = document.getElementById('paymentStatus');
-        const adminPanel = document.getElementById('adminPanel');
+        const elements = {
+            tabCoins: document.getElementById('tabCoins'),
+            tabSkins: document.getElementById('tabSkins'),
+            tabCaixas: document.getElementById('tabCaixas'),
+            tabArmas: document.getElementById('tabArmas'),
+            coinsSection: document.getElementById('coinsSection'),
+            skinsSection: document.getElementById('skinsSection'),
+            caixasSection: document.getElementById('caixasSection'),
+            armasSection: document.getElementById('armasSection'),
+            buyButton: document.getElementById('buyButton'),
+            formContainer: document.getElementById('formContainer'),
+            purchaseForm: document.getElementById('purchaseForm'),
+            pixSection: document.getElementById('pixSection'),
+            waitingSection: document.getElementById('waitingSection'),
+            clientMessage: document.getElementById('clientMessage'),
+            clientMessageTitle: document.getElementById('clientMessageTitle'),
+            clientMessageText: document.getElementById('clientMessageText'),
+            telefone: document.getElementById('telefone'),
+            coinAmount: document.getElementById('coinAmount'),
+            coinPrice: document.getElementById('coinPrice'),
+            selectedInfo: document.getElementById('selectedProductInfo'),
+            selectedName: document.getElementById('selectedProductName'),
+            selectedPrice: document.getElementById('selectedProductPrice'),
+            selectedDesc: document.getElementById('selectedProductDescription'),
+            pixValue: document.getElementById('pixValue'),
+            pixKey: document.getElementById('pixKey'),
+            copyPixKey: document.getElementById('copyPixKey'),
+            confirmPayment: document.getElementById('confirmPayment'),
+            comprovante: document.getElementById('comprovante'),
+            mensagem: document.getElementById('mensagem'),
+            paymentStatus: document.getElementById('paymentStatus'),
+            adminPanel: document.getElementById('adminPanel'),
+            transactionsList: document.getElementById('transactionsList'),
+            adminTransactionDetail: document.getElementById('adminTransactionDetail'),
+            adminTransactionInfo: document.getElementById('adminTransactionInfo'),
+            approvePayment: document.getElementById('approvePayment'),
+            rejectPayment: document.getElementById('rejectPayment'),
+            adminAccessBtn: document.getElementById('adminAccessBtn')
+        };
 
-        // ===== NOVO: VERIFICAR SE TEM LINK DE ADMIN NA URL =====
-        const urlParams = new URLSearchParams(window.location.search);
-        const adminTransactionId = urlParams.get('admin');
-
-        if (adminTransactionId) {
-            // Mostra mensagem de carregamento
-            showLoading('Carregando painel admin...');
-            
-            // Aguarda um pouco e mostra o painel
-            setTimeout(() => {
-                hideLoading();
-                showAdminPanel();
-                
-                // Carrega a transação específica
-                setTimeout(() => {
-                    const transactions = JSON.parse(localStorage.getItem('fatal_fury_transactions') || '{}');
-                    if (transactions[adminTransactionId]) {
-                        window.selectTransaction(adminTransactionId);
-                        
-                        // Rola até o painel
-                        document.querySelector('.admin-panel').scrollIntoView({ behavior: 'smooth' });
-                    }
-                }, 1000);
-            }, 500);
-        }
-
-        // FUNÇÕES
-        function maskTelefone(value) {
-            return value.replace(/\D/g, '').replace(/(\d{2})(\d)/, '($1) $2').replace(/(\d{5})(\d)/, '$1-$2').replace(/(-\d{4})\d+?$/, '$1');
-        }
-
-        telefoneInput.addEventListener('input', (e) => {
-            e.target.value = maskTelefone(e.target.value);
+        elements.telefone.addEventListener('input', (e) => {
+            e.target.value = e.target.value.replace(/\D/g, '').replace(/(\d{2})(\d)/, '($1) $2').replace(/(\d{5})(\d)/, '$1-$2');
         });
 
-        function deactivateAllTabs() {
-            tabCoins.classList.remove('active');
-            tabSkins.classList.remove('active');
-            tabCaixas.classList.remove('active');
-            tabArmas.classList.remove('active');
-            coinsSection.classList.remove('active');
-            skinsSection.classList.remove('active');
-            caixasSection.classList.remove('active');
-            armasSection.classList.remove('active');
+        function deactivateTabs() {
+            document.querySelectorAll('.tab-button').forEach(t => t.classList.remove('active'));
+            document.querySelectorAll('.product-section').forEach(s => s.classList.remove('active'));
         }
 
-        tabCoins.addEventListener('click', () => {
-            deactivateAllTabs();
-            tabCoins.classList.add('active');
-            coinsSection.classList.add('active');
+        elements.tabCoins.addEventListener('click', () => {
+            deactivateTabs();
+            elements.tabCoins.classList.add('active');
+            elements.coinsSection.classList.add('active');
             updateSelectedProduct();
         });
 
-        tabSkins.addEventListener('click', () => {
-            deactivateAllTabs();
-            tabSkins.classList.add('active');
-            skinsSection.classList.add('active');
-            document.querySelectorAll('#skinsSection .product-item').forEach(item => {
-                item.classList.remove('selected');
-            });
+        elements.tabSkins.addEventListener('click', () => {
+            deactivateTabs();
+            elements.tabSkins.classList.add('active');
+            elements.skinsSection.classList.add('active');
+            document.querySelectorAll('#skinsSection .product-item').forEach(i => i.classList.remove('selected'));
             currentProduct = null;
             updateSelectedProduct();
         });
 
-        tabCaixas.addEventListener('click', () => {
-            deactivateAllTabs();
-            tabCaixas.classList.add('active');
-            caixasSection.classList.add('active');
-            document.querySelectorAll('#caixasSection .product-item').forEach(item => {
-                item.classList.remove('selected');
-            });
+        elements.tabCaixas.addEventListener('click', () => {
+            deactivateTabs();
+            elements.tabCaixas.classList.add('active');
+            elements.caixasSection.classList.add('active');
+            document.querySelectorAll('#caixasSection .product-item').forEach(i => i.classList.remove('selected'));
             currentProduct = null;
             updateSelectedProduct();
         });
 
-        tabArmas.addEventListener('click', () => {
-            deactivateAllTabs();
-            tabArmas.classList.add('active');
-            armasSection.classList.add('active');
-            document.querySelectorAll('#armasSection .product-item').forEach(item => {
-                item.classList.remove('selected');
-            });
+        elements.tabArmas.addEventListener('click', () => {
+            deactivateTabs();
+            elements.tabArmas.classList.add('active');
+            elements.armasSection.classList.add('active');
+            document.querySelectorAll('#armasSection .product-item').forEach(i => i.classList.remove('selected'));
             currentProduct = null;
             updateSelectedProduct();
         });
 
-        coinAmount.addEventListener('input', (e) => {
-            let value = parseInt(e.target.value) || 0;
-            if (value < 1) value = 1;
-            e.target.value = value;
-            const price = (value * 1).toFixed(2);
-            coinPrice.textContent = `R$ ${price.replace('.', ',')}`;
-            if (coinsSection.classList.contains('active')) {
-                currentProduct = `${value} Coins`;
-                currentPrice = value;
+        elements.coinAmount.addEventListener('input', (e) => {
+            let val = parseInt(e.target.value) || 1;
+            if (val < 1) val = 1;
+            e.target.value = val;
+            elements.coinPrice.textContent = `R$ ${val.toFixed(2).replace('.', ',')}`;
+            if (elements.coinsSection.classList.contains('active')) {
+                currentProduct = `${val} Coins`;
+                currentPrice = val;
                 currentType = 'coins';
-                currentDescription = `${value} Coins no servidor (1 Coin = R$ 1,00)`;
+                currentDesc = `${val} Coins (1 Coin = R$ 1,00)`;
                 updateSelectedProduct();
             }
         });
 
         document.querySelectorAll('.product-item').forEach(item => {
             item.addEventListener('click', () => {
-                const section = item.closest('.product-section');
-                section.querySelectorAll('.product-item').forEach(i => i.classList.remove('selected'));
+                item.closest('.product-section').querySelectorAll('.product-item').forEach(i => i.classList.remove('selected'));
                 item.classList.add('selected');
                 currentProduct = item.dataset.product;
                 currentPrice = parseFloat(item.dataset.price);
                 currentType = item.dataset.type;
-                currentDescription = item.dataset.description;
+                currentDesc = item.dataset.description;
                 updateSelectedProduct();
             });
         });
 
         function updateSelectedProduct() {
             if (currentProduct && currentPrice > 0) {
-                selectedProductInfo.style.display = 'block';
-                selectedProductName.textContent = currentProduct;
-                selectedProductPrice.textContent = `R$ ${currentPrice.toFixed(2).replace('.', ',')}`;
-                selectedProductDescription.textContent = currentDescription;
-                buyButton.disabled = false;
-                buyButton.textContent = 'Comprar Agora';
+                elements.selectedInfo.style.display = 'block';
+                elements.selectedName.textContent = currentProduct;
+                elements.selectedPrice.textContent = `R$ ${currentPrice.toFixed(2).replace('.', ',')}`;
+                elements.selectedDesc.textContent = currentDesc;
+                elements.buyButton.disabled = false;
+                elements.buyButton.textContent = 'Comprar Agora';
             } else {
-                selectedProductInfo.style.display = 'none';
-                buyButton.disabled = true;
-                buyButton.textContent = 'Selecione um Produto';
+                elements.selectedInfo.style.display = 'none';
+                elements.buyButton.disabled = true;
+                elements.buyButton.textContent = 'Selecione um Produto';
             }
         }
 
-        buyButton.addEventListener('click', () => {
-            if (!currentProduct || currentPrice <= 0) return;
-            formContainer.classList.add('show');
-            buyButton.style.display = 'none';
-            setTimeout(() => {
-                formContainer.scrollIntoView({ behavior: 'smooth', block: 'center' });
-            }, 300);
+        elements.buyButton.addEventListener('click', () => {
+            if (!currentProduct) return;
+            elements.formContainer.classList.add('show');
+            elements.buyButton.style.display = 'none';
+            setTimeout(() => elements.formContainer.scrollIntoView({ behavior: 'smooth' }), 300);
         });
 
-        purchaseForm.addEventListener('submit', async (e) => {
+        elements.purchaseForm.addEventListener('submit', async (e) => {
             e.preventDefault();
             const nick = document.getElementById('nick').value.trim();
             const discord = document.getElementById('discord').value.trim();
             const telefone = document.getElementById('telefone').value.trim();
             const gmail = document.getElementById('gmail').value.trim();
-            if (!nick || !discord || !telefone || !gmail) {
-                alert('Por favor, preencha todos os campos!');
-                return;
-            }
-            if (!discord.includes('#')) {
-                alert('Formato de Discord inválido! Use: usuario#0000');
-                return;
-            }
-            if (!gmail.includes('@gmail.com')) {
-                alert('Por favor, use um Gmail válido!');
-                return;
-            }
             
-            // Gerar ID único
-            currentTransactionId = 'TRX-' + Date.now() + '-' + Math.random().toString(36).substr(2, 9);
+            if (!nick || !discord || !telefone || !gmail) return alert('Preencha todos os campos!');
+            if (!discord.includes('#')) return alert('Discord: usuario#0000');
+            if (!gmail.includes('@gmail.com')) return alert('Use Gmail válido!');
             
-            pixValue.textContent = `R$ ${currentPrice.toFixed(2).replace('.', ',')}`;
-            pixKey.textContent = 'chave-pix@furryrp.com';
-            purchaseForm.style.display = 'none';
-            pixSection.classList.add('show');
+            currentTransactionId = 'FF-' + Date.now() + '-' + Math.random().toString(36).substr(2, 6);
+            elements.pixValue.textContent = `R$ ${currentPrice.toFixed(2).replace('.', ',')}`;
+            elements.purchaseForm.style.display = 'none';
+            elements.pixSection.classList.add('show');
         });
 
-        copyPixKey.addEventListener('click', () => {
-            navigator.clipboard.writeText(pixKey.textContent).then(() => {
-                copyPixKey.textContent = 'Copiado!';
-                setTimeout(() => {
-                    copyPixKey.textContent = 'Copiar Chave PIX';
-                }, 2000);
+        elements.copyPixKey.addEventListener('click', () => {
+            navigator.clipboard.writeText(elements.pixKey.textContent).then(() => {
+                elements.copyPixKey.textContent = 'Copiado!';
+                setTimeout(() => elements.copyPixKey.textContent = 'Copiar Chave PIX', 2000);
             });
         });
 
-        // Função para salvar transação
+        function getTransactions() {
+            return JSON.parse(localStorage.getItem('ff_transactions') || '{}');
+        }
+
         function saveTransaction(data) {
-            let transactions = JSON.parse(localStorage.getItem('fatal_fury_transactions') || '{}');
-            transactions[data.id] = data;
-            localStorage.setItem('fatal_fury_transactions', JSON.stringify(transactions));
-            return true;
+            const t = getTransactions();
+            t[data.id] = data;
+            localStorage.setItem('ff_transactions', JSON.stringify(t));
         }
 
-        // Função para carregar transação
         function loadTransaction(id) {
-            const transactions = JSON.parse(localStorage.getItem('fatal_fury_transactions') || '{}');
-            return transactions[id] || null;
+            return getTransactions()[id] || null;
         }
 
-        // Função para atualizar status
-        function updateTransactionStatus(id, status) {
-            const transactions = JSON.parse(localStorage.getItem('fatal_fury_transactions') || '{}');
-            if (transactions[id]) {
-                transactions[id].status = status;
-                if (status === 'approved') {
-                    transactions[id].approvedAt = new Date().toISOString();
-                } else if (status === 'rejected') {
-                    transactions[id].rejectedAt = new Date().toISOString();
-                }
-                localStorage.setItem('fatal_fury_transactions', JSON.stringify(transactions));
-                
-                // Se for a transação atual do cliente, atualiza
-                if (id === currentTransactionId) {
-                    transactionData = transactions[id];
-                }
-                
-                // Se for a transação selecionada no admin, atualiza
-                if (selectedTransaction && selectedTransaction.id === id) {
-                    selectedTransaction = transactions[id];
-                    showSelectedTransaction();
-                }
-                
-                return true;
+        async function updateStatus(id, status) {
+            const t = getTransactions();
+            if (t[id]) {
+                t[id].status = status;
+                localStorage.setItem('ff_transactions', JSON.stringify(t));
+                if (id === currentTransactionId) transactionData = t[id];
             }
-            return false;
         }
 
-        // Função para carregar todas transações
-        function loadAllTransactions() {
-            return JSON.parse(localStorage.getItem('fatal_fury_transactions') || '{}');
-        }
-
-        // Função para verificar status
-        function checkTransactionStatus() {
+        function checkStatus() {
             if (!currentTransactionId) return;
-            
             const data = loadTransaction(currentTransactionId);
-            if (data) {
-                transactionData = data;
-                if (data.status === 'approved') {
-                    paymentStatus.className = 'status-badge approved';
-                    paymentStatus.textContent = '✅ Pagamento aprovado!';
-                    if (statusCheckInterval) clearInterval(statusCheckInterval);
-                    waitingSection.classList.remove('show');
-                    clientMessage.classList.add('show', 'approved');
-                    clientMessageTitle.textContent = '✅ Pagamento Confirmado!';
-                    clientMessageText.textContent = 'Agora é só aguardar o administrador entregar seus itens no jogo.';
-                } else if (data.status === 'rejected') {
-                    paymentStatus.className = 'status-badge rejected';
-                    paymentStatus.textContent = '❌ Pagamento rejeitado';
-                    if (statusCheckInterval) clearInterval(statusCheckInterval);
-                    waitingSection.classList.remove('show');
-                    clientMessage.classList.add('show', 'rejected');
-                    clientMessageTitle.textContent = '❌ Pagamento Não Identificado';
-                    clientMessageText.textContent = 'Não foi possível confirmar seu pagamento. Entre em contato com o suporte.';
-                }
+            if (data?.status === 'approved') {
+                elements.paymentStatus.className = 'status-badge approved';
+                elements.paymentStatus.textContent = '✅ Aprovado!';
+                clearInterval(statusInterval);
+                elements.waitingSection.classList.remove('show');
+                elements.clientMessage.classList.add('show', 'approved');
+                elements.clientMessageTitle.textContent = '✅ Pagamento Confirmado!';
+                elements.clientMessageText.textContent = 'Seus itens serão entregues em breve.';
+            } else if (data?.status === 'rejected') {
+                elements.paymentStatus.className = 'status-badge rejected';
+                elements.paymentStatus.textContent = '❌ Recusado';
+                clearInterval(statusInterval);
+                elements.waitingSection.classList.remove('show');
+                elements.clientMessage.classList.add('show', 'rejected');
+                elements.clientMessageTitle.textContent = '❌ Pagamento Recusado';
+                elements.clientMessageText.textContent = 'Fale com o suporte.';
             }
         }
 
-        // Mostrar loading
-        function showLoading(message) {
-            const overlay = document.createElement('div');
-            overlay.className = 'loading-overlay';
-            overlay.id = 'loadingOverlay';
-            overlay.innerHTML = `
-                <div class="loading-spinner"></div>
-                <div class="loading-text">${message}</div>
-            `;
-            document.body.appendChild(overlay);
-        }
-
-        function hideLoading() {
-            const overlay = document.getElementById('loadingOverlay');
-            if (overlay) overlay.remove();
-        }
-
-        // Função para abrir imagem em modal
-        function openImageModal(imageUrl) {
-            const modal = document.createElement('div');
-            modal.className = 'modal';
-            modal.innerHTML = `
-                <div class="modal-close" onclick="this.parentElement.remove()">✕</div>
-                <div class="modal-content">
-                    <img src="${imageUrl}" alt="Comprovante">
-                </div>
-            `;
-            document.body.appendChild(modal);
-        }
-
-        // Tornar função global para usar no HTML
-        window.openImageModal = openImageModal;
-
-        confirmPayment.addEventListener('click', async () => {
-            if (!comprovante.files[0]) {
-                alert('Por favor, selecione um comprovante!');
-                return;
-            }
+        elements.confirmPayment.addEventListener('click', async () => {
+            if (!elements.comprovante.files[0]) return alert('Selecione o comprovante!');
             
-            showLoading('Enviando comprovante...');
+            elements.pixSection.classList.remove('show');
+            elements.waitingSection.classList.add('show');
             
-            pixSection.classList.remove('show');
-            waitingSection.classList.add('show');
-            paymentStatus.className = 'status-badge pending';
-            paymentStatus.textContent = 'Aguardando confirmação';
-            
-            const nick = document.getElementById('nick').value.trim();
-            const discord = document.getElementById('discord').value.trim();
-            const telefone = document.getElementById('telefone').value.trim();
-            const gmail = document.getElementById('gmail').value.trim();
-            const file = comprovante.files[0];
-            const msg = mensagem.value.trim();
-            
-            // Gerar ID único
-            currentTransactionId = 'TRX-' + Date.now() + '-' + Math.random().toString(36).substr(2, 9);
+            const file = elements.comprovante.files[0];
+            const msg = elements.mensagem.value.trim();
             
             transactionData = {
                 id: currentTransactionId,
-                nick,
-                discord,
-                telefone,
-                gmail,
+                nick: document.getElementById('nick').value.trim(),
+                discord: document.getElementById('discord').value.trim(),
+                telefone: document.getElementById('telefone').value.trim(),
+                gmail: document.getElementById('gmail').value.trim(),
                 product: currentProduct,
                 price: currentPrice,
                 type: currentType,
-                description: currentDescription,
                 message: msg,
                 status: 'pending',
                 timestamp: new Date().toISOString()
             };
             
-            // ===== PARTE NOVA: GERAR LINK PRO ADMIN =====
-            const linkAtual = window.location.href.split('?')[0]; // Pega o link do site
-            const linkAdmin = `${linkAtual}?admin=${currentTransactionId}`;
-            
-            // Salva a transação
             saveTransaction(transactionData);
             
-            // Converte imagem para base64 e salva
+            const link = window.location.href.split('#')[0] + '#admin';
             const reader = new FileReader();
             reader.readAsDataURL(file);
-            reader.onload = function() {
-                transactionData.comprovante = reader.result;
-                saveTransaction(transactionData);
+            reader.onload = async () => {
+                const embed = {
+                    title: '🟡 NOVA COMPRA - Fatal Fury RP',
+                    color: 0xffaa00,
+                    fields: [
+                        { name: '🆔 ID', value: currentTransactionId, inline: false },
+                        { name: '🔗 LINK ADMIN', value: link, inline: false },
+                        { name: '🎮 Nick', value: transactionData.nick, inline: true },
+                        { name: '💬 Discord', value: transactionData.discord, inline: true },
+                        { name: '📱 Telefone', value: transactionData.telefone, inline: true },
+                        { name: '🛍️ Produto', value: currentProduct, inline: true },
+                        { name: '💵 Valor', value: `R$ ${currentPrice.toFixed(2)}`, inline: true },
+                        { name: '📝 Mensagem', value: msg || 'Sem mensagem', inline: false }
+                    ]
+                };
                 
-                // Mostra o modal com o link
-                const modalLink = document.createElement('div');
-                modalLink.className = 'admin-link-modal';
-                modalLink.innerHTML = `
-                    <div class="admin-link-box">
-                        <h2>✅ COMPROVANTE ENVIADO!</h2>
-                        <p style="color: #fff; margin-bottom: 20px;">Agora envie este link para o administrador aprovar:</p>
-                        <div class="link-container">
-                            <code>${linkAdmin}</code>
+                const formData = new FormData();
+                formData.append('file', file);
+                formData.append('payload_json', JSON.stringify({ 
+                    content: `<@&${CARGO_ID}>`,
+                    embeds: [embed] 
+                }));
+                
+                try {
+                    await fetch(DISCORD_WEBHOOK, { method: 'POST', body: formData });
+                    statusInterval = setInterval(checkStatus, 2000);
+                } catch (error) {
+                    alert('Erro ao enviar. Tente novamente.');
+                }
+            };
+        });
+
+        function loadAdminTransactions() {
+            const transactions = Object.values(getTransactions()).reverse();
+            if (transactions.length === 0) {
+                elements.transactionsList.innerHTML = '<p>Nenhuma transação encontrada.</p>';
+                return;
+            }
+            
+            let html = '';
+            transactions.forEach(t => {
+                const statusClass = t.status === 'pending' ? 'status-pending' : t.status === 'approved' ? 'status-approved' : 'status-rejected';
+                const statusText = t.status === 'pending' ? '⏳ Pendente' : t.status === 'approved' ? '✅ Aprovado' : '❌ Recusado';
+                html += `
+                    <div class="transaction-item" onclick="selectTransaction('${t.id}')" id="trans-${t.id}">
+                        <div class="transaction-header">
+                            <span class="transaction-id">${t.id}</span>
+                            <span class="transaction-status ${statusClass}">${statusText}</span>
                         </div>
-                        <div class="button-group">
-                            <button class="copy-btn" id="copyAdminLink">📋 COPIAR LINK</button>
-                            <button class="close-btn" id="closeModal">FECHAR</button>
-                        </div>
-                        <p class="info-text">O admin abre este link no celular dele e vê o pagamento</p>
+                        <div><strong>${t.nick}</strong> - R$ ${t.price.toFixed(2)}</div>
+                        <div style="font-size:0.9em; color:#ccc;">${t.product}</div>
                     </div>
                 `;
-                document.body.appendChild(modalLink);
-                
-                document.getElementById('copyAdminLink').addEventListener('click', () => {
-                    navigator.clipboard.writeText(linkAdmin);
-                    alert('Link copiado! Envie pro admin.');
+            });
+            elements.transactionsList.innerHTML = html;
+        }
+
+        window.selectTransaction = function(id) {
+            const t = loadTransaction(id);
+            if (!t) return;
+            
+            document.querySelectorAll('.transaction-item').forEach(i => i.classList.remove('selected'));
+            document.getElementById('trans-' + id)?.classList.add('selected');
+            
+            elements.adminTransactionInfo.innerHTML = `
+                <p><strong>ID:</strong> ${t.id}</p>
+                <p><strong>Cliente:</strong> ${t.nick}</p>
+                <p><strong>Discord:</strong> ${t.discord}</p>
+                <p><strong>Telefone:</strong> ${t.telefone}</p>
+                <p><strong>Gmail:</strong> ${t.gmail}</p>
+                <p><strong>Produto:</strong> ${t.product}</p>
+                <p><strong>Valor:</strong> R$ ${t.price.toFixed(2)}</p>
+                <p><strong>Mensagem:</strong> ${t.message || 'Sem mensagem'}</p>
+                <p><strong>Status:</strong> <span class="status-badge ${t.status}">${t.status}</span></p>
+            `;
+            elements.adminTransactionDetail.style.display = 'block';
+            
+            elements.approvePayment.onclick = async () => {
+                await updateStatus(t.id, 'approved');
+                const embed = {
+                    title: '✅ PAGAMENTO APROVADO',
+                    color: 0x00ff00,
+                    fields: [
+                        { name: '🆔 ID', value: t.id },
+                        { name: '🎮 Cliente', value: t.nick },
+                        { name: '🛍️ Produto', value: t.product },
+                        { name: '💵 Valor', value: `R$ ${t.price.toFixed(2)}` }
+                    ]
+                };
+                await fetch(DISCORD_WEBHOOK, { 
+                    method: 'POST', 
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ embeds: [embed] }) 
                 });
-                
-                document.getElementById('closeModal').addEventListener('click', () => {
-                    modalLink.remove();
-                });
-                
-                hideLoading();
-                statusCheckInterval = setInterval(checkTransactionStatus, 3000);
+                loadAdminTransactions();
+                elements.adminTransactionDetail.style.display = 'none';
             };
             
-            // Envia pro Discord (opcional)
-            const typeNames = { 'coins': 'Pacote de Coins', 'skin': 'Skin de Casal', 'caixa': 'Caixa Misteriosa', 'arma': 'Arma Especial' };
-            const embed = {
-                title: '🟡 NOVO COMPROVANTE - Fatal Fury Roleplay',
-                color: 0xffaa00,
-                fields: [
-                    { name: '🆔 ID da Transação:', value: currentTransactionId, inline: false },
-                    { name: '🎮 Nome no Jogo:', value: nick, inline: true },
-                    { name: '💬 Discord:', value: discord, inline: true },
-                    { name: '📱 Telefone:', value: telefone, inline: true },
-                    { name: '📧 Gmail:', value: gmail, inline: true },
-                    { name: '🛍️ Produto:', value: currentProduct, inline: true },
-                    { name: '💵 Valor:', value: `R$ ${currentPrice.toFixed(2).replace('.', ',')}`, inline: true },
-                    { name: '📦 Tipo:', value: typeNames[currentType] || currentType, inline: true },
-                    { name: '📝 Mensagem:', value: msg || 'Sem mensagem', inline: false },
-                    { name: '🔗 LINK PARA APROVAR:', value: linkAdmin, inline: false }
-                ],
-                timestamp: new Date().toISOString(),
-                footer: { text: 'Fatal Fury Roleplay - Admin deve abrir o link' }
+            elements.rejectPayment.onclick = async () => {
+                await updateStatus(t.id, 'rejected');
+                const embed = {
+                    title: '❌ PAGAMENTO RECUSADO',
+                    color: 0xff0000,
+                    fields: [
+                        { name: '🆔 ID', value: t.id },
+                        { name: '🎮 Cliente', value: t.nick },
+                        { name: '🛍️ Produto', value: t.product },
+                        { name: '💵 Valor', value: `R$ ${t.price.toFixed(2)}` }
+                    ]
+                };
+                await fetch(DISCORD_WEBHOOK, { 
+                    method: 'POST', 
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ embeds: [embed] }) 
+                });
+                loadAdminTransactions();
+                elements.adminTransactionDetail.style.display = 'none';
             };
-            
-            const formData = new FormData();
-            formData.append('file', file);
-            formData.append('payload_json', JSON.stringify({ embeds: [embed] }));
-            
-            try {
-                await fetch(DISCORD_WEBHOOK_URL, { method: 'POST', body: formData });
-            } catch (error) {
-                console.error('Erro ao enviar webhook:', error);
+        };
+
+        elements.adminAccessBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            if (elements.adminPanel.style.display === 'none' || !elements.adminPanel.style.display) {
+                elements.adminPanel.style.display = 'block';
+                loadAdminTransactions();
+            } else {
+                elements.adminPanel.style.display = 'none';
             }
         });
 
-        // Função para mostrar painel admin
-        function showAdminPanel() {
-            adminPanel.innerHTML = `
-                <div class="admin-panel">
-                    <h3>⚠️ PAINEL DO ADMINISTRADOR</h3>
-                    
-                    <div class="admin-stats" id="adminStats">
-                        <div class="stat-box">
-                            <div class="stat-value" id="statPending">0</div>
-                            <div class="stat-label">Pendentes</div>
-                        </div>
-                        <div class="stat-box">
-                            <div class="stat-value" id="statApproved">0</div>
-                            <div class="stat-label">Aprovados</div>
-                        </div>
-                        <div class="stat-box">
-                            <div class="stat-value" id="statRejected">0</div>
-                            <div class="stat-label">Recusados</div>
-                        </div>
-                        <div class="stat-box">
-                            <div class="stat-value" id="statTotal">0</div>
-                            <div class="stat-label">Total</div>
-                        </div>
-                    </div>
-                    
-                    <div class="admin-filters">
-                        <button class="filter-button active" data-filter="pending">⏳ Pendentes</button>
-                        <button class="filter-button" data-filter="approved">✅ Aprovados</button>
-                        <button class="filter-button" data-filter="rejected">❌ Recusados</button>
-                        <button class="filter-button" data-filter="all">📋 Todos</button>
-                    </div>
-                    
-                    <input type="text" class="search-box" id="searchTransactions" placeholder="🔍 Buscar por nick, discord, ID...">
-                    
-                    <div class="transactions-list" id="transactionsList"></div>
-                    
-                    <div id="selectedTransactionDetail" style="display: none;">
-                        <div class="admin-info" id="selectedTransactionInfo"></div>
-                        <div id="comprovantePreview" class="image-preview" style="display: none;"></div>
-                        <div class="admin-buttons">
-                            <button class="admin-button approve" id="approvePayment">✅ Confirmar Pagamento</button>
-                            <button class="admin-button reject" id="rejectPayment">❌ Recusar Pagamento</button>
-                        </div>
-                    </div>
-                    
-                    <div class="admin-logout" id="refreshButton">🔄 Atualizar Lista</div>
-                </div>
-            `;
-            
-            adminPanel.style.display = 'block';
-            
-            // Adiciona event listeners
-            document.querySelectorAll('.filter-button').forEach(btn => {
-                btn.addEventListener('click', (e) => {
-                    document.querySelectorAll('.filter-button').forEach(b => b.classList.remove('active'));
-                    e.target.classList.add('active');
-                    currentFilter = e.target.dataset.filter;
-                    loadTransactionsList();
-                });
-            });
-            
-            document.getElementById('searchTransactions').addEventListener('input', (e) => {
-                searchTerm = e.target.value.toLowerCase();
-                loadTransactionsList();
-            });
-            
-            document.getElementById('approvePayment').addEventListener('click', approvePaymentHandler);
-            document.getElementById('rejectPayment').addEventListener('click', rejectPaymentHandler);
-            document.getElementById('refreshButton').addEventListener('click', () => {
-                loadTransactionsList();
-                updateStats();
-            });
-            
-            loadTransactionsList();
-            updateStats();
+        if (window.location.hash === '#admin') {
+            elements.adminPanel.style.display = 'block';
+            loadAdminTransactions();
         }
 
-        // Carregar lista de transações
-        function loadTransactionsList() {
-            const transactions = loadAllTransactions();
-            let transactionsArray = Object.values(transactions).sort((a, b) => 
-                new Date(b.timestamp) - new Date(a.timestamp)
-            );
-            
-            console.log('Transações carregadas:', transactionsArray);
-            
-            // Aplica filtro
-            if (currentFilter !== 'all') {
-                transactionsArray = transactionsArray.filter(t => t.status === currentFilter);
-            }
-            
-            // Aplica busca
-            if (searchTerm) {
-                transactionsArray = transactionsArray.filter(t => 
-                    (t.nick && t.nick.toLowerCase().includes(searchTerm)) ||
-                    (t.discord && t.discord.toLowerCase().includes(searchTerm)) ||
-                    (t.id && t.id.toLowerCase().includes(searchTerm)) ||
-                    (t.product && t.product.toLowerCase().includes(searchTerm))
-                );
-            }
-            
-            const transactionsList = document.getElementById('transactionsList');
-            if (!transactionsList) return;
-            
-            if (transactionsArray.length === 0) {
-                transactionsList.innerHTML = `
-                    <div class="admin-info" style="text-align: center; padding: 20px;">
-                        <i class="fas fa-inbox" style="font-size: 40px; color: #ff4500; margin-bottom: 10px;"></i>
-                        <p>Nenhuma transação encontrada</p>
-                        <p style="font-size: 0.8em; color: #999;">Aguardando pagamentos...</p>
-                    </div>
-                `;
-                return;
-            }
-            
-            let html = '<h4 style="margin-bottom: 10px;">📋 Lista de Transações:</h4>';
-            transactionsArray.forEach(t => {
-                const statusClass = t.status === 'pending' ? 'status-pending' : 
-                                  (t.status === 'approved' ? 'status-approved' : 'status-rejected');
-                const statusText = t.status === 'pending' ? 'Aguardando' : 
-                                  (t.status === 'approved' ? 'Aprovado' : 'Recusado');
-                
-                html += `
-                    <div class="transaction-item" onclick="window.selectTransaction('${t.id}')" id="trans-${t.id}">
-                        <div class="transaction-header">
-                            <span class="transaction-id">${t.id.substring(0, 8)}...</span>
-                            <span class="transaction-status ${statusClass}">${statusText}</span>
-                        </div>
-                        <div class="transaction-detail">
-                            <span>${t.nick}</span> - R$ ${t.price.toFixed(2).replace('.', ',')}
-                        </div>
-                        <div class="transaction-detail">
-                            ${t.product}
-                        </div>
-                        <div class="transaction-detail">
-                            📅 ${new Date(t.timestamp).toLocaleString('pt-BR')}
-                        </div>
-                    </div>
-                `;
-            });
-            
-            transactionsList.innerHTML = html;
-        }
+        elements.coinAmount.dispatchEvent(new Event('input'));
 
-        // Atualiza estatísticas
-        function updateStats() {
-            const transactions = loadAllTransactions();
-            const transactionsArray = Object.values(transactions);
-            
-            const pending = transactionsArray.filter(t => t.status === 'pending').length;
-            const approved = transactionsArray.filter(t => t.status === 'approved').length;
-            const rejected = transactionsArray.filter(t => t.status === 'rejected').length;
-            
-            const statPending = document.getElementById('statPending');
-            const statApproved = document.getElementById('statApproved');
-            const statRejected = document.getElementById('statRejected');
-            const statTotal = document.getElementById('statTotal');
-            
-            if (statPending) statPending.textContent = pending;
-            if (statApproved) statApproved.textContent = approved;
-            if (statRejected) statRejected.textContent = rejected;
-            if (statTotal) statTotal.textContent = transactionsArray.length;
-        }
-
-        // Função global para selecionar transação
-        window.selectTransaction = function(id) {
-            const transactions = loadAllTransactions();
-            const trans = transactions[id];
-            if (trans) {
-                // Remove seleção anterior
-                document.querySelectorAll('.transaction-item').forEach(item => {
-                    item.classList.remove('selected');
-                });
-                
-                // Adiciona seleção na atual
-                const element = document.getElementById('trans-' + id);
-                if (element) element.classList.add('selected');
-                
-                selectedTransaction = trans;
-                showSelectedTransaction();
-            }
-        };
-
-        function showSelectedTransaction() {
-            if (!selectedTransaction) return;
-            
-            const detailDiv = document.getElementById('selectedTransactionDetail');
-            const infoDiv = document.getElementById('selectedTransactionInfo');
-            const previewDiv = document.getElementById('comprovantePreview');
-            
-            detailDiv.style.display = 'block';
-            
-            const statusText = selectedTransaction.status === 'pending' ? 'Aguardando' : 
-                              (selectedTransaction.status === 'approved' ? 'Aprovado' : 'Recusado');
-            const statusClass = selectedTransaction.status === 'pending' ? 'pending' : 
-                               (selectedTransaction.status === 'approved' ? 'approved' : 'rejected');
-            
-            infoDiv.innerHTML = `
-                <p><strong>ID:</strong> ${selectedTransaction.id}</p>
-                <p><strong>Data:</strong> ${new Date(selectedTransaction.timestamp).toLocaleString('pt-BR')}</p>
-                <p><strong>Cliente:</strong> ${selectedTransaction.nick}</p>
-                <p><strong>Discord:</strong> ${selectedTransaction.discord}</p>
-                <p><strong>Telefone:</strong> ${selectedTransaction.telefone}</p>
-                <p><strong>Gmail:</strong> ${selectedTransaction.gmail}</p>
-                <p><strong>Produto:</strong> ${selectedTransaction.product}</p>
-                <p><strong>Valor:</strong> R$ ${selectedTransaction.price.toFixed(2).replace('.', ',')}</p>
-                <p><strong>Mensagem:</strong> ${selectedTransaction.message || 'Sem mensagem'}</p>
-                <p><strong>Status:</strong> <span class="status-badge ${statusClass}">${statusText}</span></p>
-            `;
-            
-            // Mostra comprovante se existir
-            if (selectedTransaction.comprovante) {
-                previewDiv.style.display = 'block';
-                previewDiv.innerHTML = `<img src="${selectedTransaction.comprovante}" alt="Comprovante" onclick="openImageModal('${selectedTransaction.comprovante}')" style="cursor: pointer;">`;
-            } else {
-                previewDiv.style.display = 'none';
-            }
-        }
-
-        // Handlers
-        function approvePaymentHandler() {
-            if (!selectedTransaction) {
-                alert('Selecione uma transação!');
-                return;
-            }
-            
-            if (selectedTransaction.status === 'approved') {
-                alert('Esta transação já está aprovada!');
-                return;
-            }
-            
-            if (confirm('Confirmar pagamento?')) {
-                updateTransactionStatus(selectedTransaction.id, 'approved');
-                updateStats();
-                
-                alert('✅ Pagamento confirmado!');
-                loadTransactionsList();
-                document.getElementById('selectedTransactionDetail').style.display = 'none';
-                selectedTransaction = null;
-            }
-        }
-
-        function rejectPaymentHandler() {
-            if (!selectedTransaction) {
-                alert('Selecione uma transação!');
-                return;
-            }
-            
-            if (selectedTransaction.status === 'rejected') {
-                alert('Esta transação já está recusada!');
-                return;
-            }
-            
-            if (confirm('Recusar pagamento?')) {
-                updateTransactionStatus(selectedTransaction.id, 'rejected');
-                updateStats();
-                
-                alert('❌ Pagamento recusado!');
-                loadTransactionsList();
-                document.getElementById('selectedTransactionDetail').style.display = 'none';
-                selectedTransaction = null;
-            }
-        }
-
-        // Inicialização
-        coinAmount.dispatchEvent(new Event('input'));
-
-        // Partículas
-        (function() {
-            const particlesContainer = document.querySelector('.particles');
-            if (!particlesContainer) return;
-            const numParticles = 40;
-            for (let i = 0; i < numParticles; i++) {
-                const particle = document.createElement('div');
-                particle.className = 'particle';
-                const size = Math.random() * 3 + 1;
-                particle.style.width = size + 'px';
-                particle.style.height = size + 'px';
-                particle.style.left = Math.random() * 100 + '%';
-                particle.style.animationDelay = Math.random() * 10 + 's';
-                particle.style.animationDuration = (Math.random() * 20 + 15) + 's';
-                particle.style.background = `rgba(255, ${Math.floor(50 + Math.random()*80)}, ${Math.floor(30 + Math.random()*40)}, ${0.2 + Math.random()*0.4})`;
-                particle.style.boxShadow = `0 0 ${Math.floor(5 + Math.random()*15)}px #ff3b3b`;
-                particlesContainer.appendChild(particle);
+        (function createParticles() {
+            const container = document.querySelector('.particles');
+            for (let i = 0; i < 30; i++) {
+                const p = document.createElement('div');
+                p.className = 'particle';
+                p.style.left = Math.random() * 100 + '%';
+                p.style.animationDelay = Math.random() * 10 + 's';
+                p.style.animationDuration = (Math.random() * 20 + 15) + 's';
+                container.appendChild(p);
             }
         })();
     </script>
 </body>
-    </html>
+                        </html>
