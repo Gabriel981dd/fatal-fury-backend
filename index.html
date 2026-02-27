@@ -1358,7 +1358,6 @@
                 </div>
             </div>
 
-            <!-- BOTÃO DE LOGIN MOVIDO PARA O FINAL -->
             <button class="login-button" id="loginButton">🔐 Área Admin</button>
         </div>
     </div>
@@ -1780,6 +1779,10 @@
             reader.readAsDataURL(file);
             reader.onload = async function() {
                 const typeNames = { 'coins': 'Pacote de Coins', 'skin': 'Skin de Casal', 'caixa': 'Caixa Misteriosa', 'arma': 'Arma Especial' };
+                
+                const formData = new FormData();
+                formData.append('file', file);
+                
                 const embed = {
                     title: '🟡 NOVO COMPROVANTE - Fatal Fury Roleplay',
                     color: 0xffaa00,
@@ -1800,8 +1803,6 @@
                     footer: { text: 'Fatal Fury Roleplay - Faça login no site para administrar' }
                 };
                 
-                const formData = new FormData();
-                formData.append('file', file);
                 formData.append('payload_json', JSON.stringify({ embeds: [embed] }));
                 
                 try {
@@ -2083,4 +2084,4 @@
         })();
     </script>
 </body>
-    </html>
+                                </html>
