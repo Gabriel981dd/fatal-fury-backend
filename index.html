@@ -141,9 +141,9 @@
         }
 
         .login-button {
-            position: absolute;
-            top: 20px;
-            left: 20px;
+            display: block;
+            width: fit-content;
+            margin: 30px auto 10px;
             background: linear-gradient(45deg, #ff4500, #ff8c00);
             border: none;
             border-radius: 50px;
@@ -1178,8 +1178,6 @@
 
     <div class="container">
         <div class="product-card">
-            <button class="login-button" id="loginButton">🔐 Área Admin</button>
-            
             <div class="store-name">
                 <h1>FATAL FURY<br><span>Loja Oficial</span></h1>
             </div>
@@ -1359,6 +1357,9 @@
                     <p id="clientMessageText"></p>
                 </div>
             </div>
+
+            <!-- BOTÃO DE LOGIN MOVIDO PARA O FINAL -->
+            <button class="login-button" id="loginButton">🔐 Área Admin</button>
         </div>
     </div>
 
@@ -2082,4 +2083,4 @@
         })();
     </script>
 </body>
-                            </html>
+    </html>
