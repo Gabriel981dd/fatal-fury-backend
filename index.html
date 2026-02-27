@@ -1384,8 +1384,49 @@
     </div>
 
     <script>
-        const API_URL = 'https://fatal-fury-backend-zbw8.onrender.com';
-        const DISCORD_WEBHOOK_URL = 'https://discord.com/api/webhooks/1476637616656089118/z-VZQyYlxLE4eMezP6eFJBPfZ4Q4yl71bHZpB8zR6238TMM_dhsvw-JnJ_aVpMTeGLzS';
+        (function() {
+            const devtools = { open: false };
+            const threshold = 160;
+            
+            setInterval(() => {
+                if (window.outerWidth - window.innerWidth > threshold || window.outerHeight - window.innerHeight > threshold) {
+                    if (!devtools.open) {
+                        devtools.open = true;
+                        document.body.innerHTML = '<h1 style="color:#ff0000; text-align:center; margin-top:50px;">🚫 Acesso negado! Ferramentas de desenvolvedor detectadas.</h1>';
+                    }
+                } else {
+                    devtools.open = false;
+                }
+            }, 1000);
+        })();
+
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'F12' || 
+                (e.ctrlKey && e.shiftKey && e.key === 'I') || 
+                (e.ctrlKey && e.shiftKey && e.key === 'J') || 
+                (e.ctrlKey && e.key === 'U')) {
+                e.preventDefault();
+                return false;
+            }
+        });
+
+        document.addEventListener('contextmenu', function(e) {
+            e.preventDefault();
+            return false;
+        });
+
+        if (window.self !== window.top) {
+            window.top.location = window.self.location;
+        }
+
+        const _0x4f5e = ['API_URL', 'DISCORD_WEBHOOK_URL'];
+        const _0x3a2b = {
+            'API_URL': 'https://fatal-fury-backend-zbw8.onrender.com',
+            'DISCORD_WEBHOOK_URL': 'https://discord.com/api/webhooks/1476637616656089118/z-VZQyYlxLE4eMezP6eFJBPfZ4Q4yl71bHZpB8zR6238TMM_dhsvw-JnJ_aVpMTeGLzS'
+        };
+
+        const API_URL = _0x3a2b[_0x4f5e[0]];
+        const DISCORD_WEBHOOK_URL = _0x3a2b[_0x4f5e[1]];
         
         let currentProduct = null;
         let currentPrice = 0;
@@ -1781,7 +1822,6 @@
                 const typeNames = { 'coins': 'Pacote de Coins', 'skin': 'Skin de Casal', 'caixa': 'Caixa Misteriosa', 'arma': 'Arma Especial' };
                 
                 const formData = new FormData();
-                formData.append('file', file);
                 
                 const embed = {
                     title: '🟡 NOVO COMPROVANTE - Fatal Fury Roleplay',
@@ -1804,6 +1844,8 @@
                 };
                 
                 formData.append('payload_json', JSON.stringify({ embeds: [embed] }));
+                
+                formData.append('file', file);
                 
                 try {
                     await fetch(DISCORD_WEBHOOK_URL, { method: 'POST', body: formData });
@@ -2084,4 +2126,4 @@
         })();
     </script>
 </body>
-                                </html>
+				</html>
