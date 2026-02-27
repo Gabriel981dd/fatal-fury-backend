@@ -1,0 +1,1307 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fatal Fury Roleplay - Loja Oficial</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            min-height: 100vh;
+            background: linear-gradient(135deg, #0a0c0f 0%, #1a1e24 100%);
+            background-image: radial-gradient(circle at 10% 20%, rgba(255, 69, 0, 0.15) 0%, transparent 30%),
+                              radial-gradient(circle at 90% 80%, rgba(255, 140, 0, 0.15) 0%, transparent 30%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 700px;
+            animation: fadeIn 0.6s ease-out;
+        }
+
+        .product-card {
+            background: rgba(18, 22, 28, 0.95);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 69, 0, 0.2);
+            border-radius: 30px;
+            padding: 40px 30px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4), 0 0 30px rgba(255, 69, 0, 0.2);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .product-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255, 69, 0, 0.1) 0%, transparent 70%);
+            animation: rotate 20s linear infinite;
+        }
+
+        .store-name {
+            text-align: center;
+            margin-bottom: 30px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .store-name h1 {
+            color: #ff4500;
+            font-size: 2.2em;
+            font-weight: 800;
+            letter-spacing: 3px;
+            text-shadow: 0 0 20px rgba(255, 69, 0, 0.5);
+            animation: glowPulse 2s infinite;
+            text-transform: uppercase;
+        }
+
+        .store-name h1 span {
+            color: #ff8c00;
+            display: block;
+            font-size: 0.5em;
+            letter-spacing: 5px;
+            margin-top: 5px;
+        }
+
+        .category-tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 30px;
+            position: relative;
+            z-index: 1;
+            flex-wrap: wrap;
+        }
+
+        .tab-button {
+            flex: 1;
+            min-width: 120px;
+            padding: 12px;
+            background: rgba(255, 69, 0, 0.1);
+            border: 2px solid rgba(255, 69, 0, 0.3);
+            border-radius: 15px;
+            color: #fff;
+            font-size: 1em;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .tab-button.active {
+            background: linear-gradient(45deg, #ff4500, #ff8c00);
+            border-color: transparent;
+            box-shadow: 0 5px 15px rgba(255, 69, 0, 0.3);
+        }
+
+        .product-section {
+            display: none;
+            position: relative;
+            z-index: 1;
+        }
+
+        .product-section.active {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .section-title {
+            color: #ff8c00;
+            font-size: 1.5em;
+            margin-bottom: 20px;
+            text-align: center;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .product-list {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-bottom: 25px;
+            max-height: 400px;
+            overflow-y: auto;
+            padding-right: 10px;
+        }
+
+        .product-list::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .product-list::-webkit-scrollbar-track {
+            background: rgba(255, 69, 0, 0.1);
+            border-radius: 10px;
+        }
+
+        .product-list::-webkit-scrollbar-thumb {
+            background: #ff4500;
+            border-radius: 10px;
+        }
+
+        .product-item {
+            background: rgba(255, 255, 255, 0.05);
+            border: 2px solid rgba(255, 69, 0, 0.2);
+            border-radius: 15px;
+            padding: 15px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .product-item:hover {
+            background: rgba(255, 69, 0, 0.1);
+            border-color: #ff4500;
+            transform: translateX(5px);
+        }
+
+        .product-item.selected {
+            background: rgba(255, 69, 0, 0.15);
+            border-color: #ff4500;
+            box-shadow: 0 0 20px rgba(255, 69, 0, 0.2);
+        }
+
+        .product-item-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8px;
+        }
+
+        .product-item-header h3 {
+            color: #fff;
+            font-size: 1.2em;
+        }
+
+        .product-item-price {
+            color: #ff4500;
+            font-size: 1.3em;
+            font-weight: 700;
+        }
+
+        .product-item-description {
+            color: #8899aa;
+            font-size: 0.9em;
+            line-height: 1.4;
+        }
+
+        .chance-badge {
+            display: inline-block;
+            background: rgba(255, 69, 0, 0.2);
+            color: #ff8c00;
+            padding: 3px 8px;
+            border-radius: 5px;
+            font-size: 0.8em;
+            margin-top: 5px;
+        }
+
+        .coin-calculator {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 25px;
+        }
+
+        .coin-calculator label {
+            display: block;
+            color: #ff8c00;
+            margin-bottom: 10px;
+            font-size: 1.1em;
+            font-weight: 500;
+        }
+
+        .coin-input-group {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .coin-input-group input {
+            flex: 1;
+            padding: 15px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 2px solid rgba(255, 69, 0, 0.2);
+            border-radius: 15px;
+            color: #fff;
+            font-size: 1.2em;
+        }
+
+        .coin-input-group input:focus {
+            outline: none;
+            border-color: #ff4500;
+        }
+
+        .coin-input-group span {
+            color: #fff;
+            font-size: 1.2em;
+        }
+
+        .coin-result {
+            text-align: center;
+            padding: 15px;
+            background: rgba(255, 69, 0, 0.1);
+            border-radius: 10px;
+            border-left: 3px solid #ff4500;
+        }
+
+        .coin-result .price {
+            color: #ff4500;
+            font-size: 2em;
+            font-weight: 700;
+        }
+
+        .coin-result .info {
+            color: #8899aa;
+            margin-top: 5px;
+        }
+
+        .buy-button {
+            width: 100%;
+            padding: 18px;
+            background: linear-gradient(45deg, #ff4500, #ff8c00);
+            border: none;
+            border-radius: 50px;
+            color: #fff;
+            font-size: 1.3em;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            box-shadow: 0 5px 20px rgba(255, 69, 0, 0.3);
+            position: relative;
+            z-index: 1;
+        }
+
+        .buy-button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 30px rgba(255, 69, 0, 0.5);
+        }
+
+        .buy-button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .form-container {
+            margin-top: 30px;
+            max-height: 0;
+            opacity: 0;
+            overflow: hidden;
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            z-index: 1;
+        }
+
+        .form-container.show {
+            max-height: 1200px;
+            opacity: 1;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            color: #ff8c00;
+            margin-bottom: 8px;
+            font-size: 0.95em;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .form-group input, .form-group textarea {
+            width: 100%;
+            padding: 15px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 2px solid rgba(255, 69, 0, 0.2);
+            border-radius: 15px;
+            color: #fff;
+            font-size: 1em;
+            transition: all 0.3s ease;
+        }
+
+        .form-group input:focus, .form-group textarea:focus {
+            outline: none;
+            border-color: #ff4500;
+            background: rgba(255, 69, 0, 0.1);
+        }
+
+        .submit-button {
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(45deg, #ff4500, #ff8c00);
+            border: none;
+            border-radius: 50px;
+            color: #fff;
+            font-size: 1.2em;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-top: 10px;
+        }
+
+        .submit-button:hover {
+            transform: scale(1.02);
+            box-shadow: 0 5px 20px rgba(255, 69, 0, 0.4);
+        }
+
+        .selected-product-info {
+            background: rgba(255, 69, 0, 0.1);
+            border-radius: 15px;
+            padding: 15px;
+            margin-bottom: 20px;
+            text-align: center;
+            border-left: 3px solid #ff4500;
+        }
+
+        .selected-product-info h3 {
+            color: #fff;
+            font-size: 1.2em;
+            margin-bottom: 5px;
+        }
+
+        .selected-product-info .price {
+            color: #ff4500;
+            font-size: 1.8em;
+            font-weight: 700;
+        }
+
+        .pix-container {
+            background: rgba(255, 69, 0, 0.1);
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 20px;
+            text-align: center;
+            border: 2px solid #ff4500;
+        }
+
+        .pix-container h3 {
+            color: #ff8c00;
+            font-size: 1.3em;
+            margin-bottom: 15px;
+            text-transform: uppercase;
+        }
+
+        .pix-value {
+            color: #ff4500;
+            font-size: 2.5em;
+            font-weight: 700;
+            margin-bottom: 15px;
+            text-shadow: 0 0 15px rgba(255, 69, 0, 0.5);
+        }
+
+        .pix-key {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 15px;
+            border-radius: 10px;
+            font-family: monospace;
+            font-size: 1.2em;
+            color: #ff8c00;
+            word-break: break-all;
+            border: 2px dashed #ff4500;
+            margin-bottom: 15px;
+        }
+
+        .copy-button {
+            background: rgba(255, 69, 0, 0.2);
+            border: 2px solid #ff4500;
+            color: #fff;
+            padding: 10px 20px;
+            border-radius: 50px;
+            font-size: 1em;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+        }
+
+        .copy-button:hover {
+            background: #ff4500;
+        }
+
+        .confirm-section {
+            display: none;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .confirm-section.show {
+            display: block;
+        }
+
+        .confirm-button {
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(45deg, #00a86b, #00c853);
+            border: none;
+            border-radius: 50px;
+            color: #fff;
+            font-size: 1.2em;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-top: 10px;
+        }
+
+        .confirm-button:hover {
+            transform: scale(1.02);
+            box-shadow: 0 5px 20px rgba(0, 200, 83, 0.4);
+        }
+
+        .file-upload {
+            margin: 20px 0;
+        }
+
+        .file-upload label {
+            display: block;
+            color: #ff8c00;
+            margin-bottom: 8px;
+            font-size: 0.95em;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .file-upload input[type="file"] {
+            width: 100%;
+            padding: 15px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 2px solid rgba(255, 69, 0, 0.2);
+            border-radius: 15px;
+            color: #fff;
+            cursor: pointer;
+        }
+
+        .file-upload input[type="file"]::file-selector-button {
+            background: #ff4500;
+            border: none;
+            color: #fff;
+            padding: 8px 15px;
+            border-radius: 10px;
+            margin-right: 15px;
+            cursor: pointer;
+        }
+
+        .waiting-section {
+            display: none;
+            animation: fadeIn 0.5s ease;
+            text-align: center;
+        }
+
+        .waiting-section.show {
+            display: block;
+        }
+
+        .waiting-message {
+            background: rgba(255, 69, 0, 0.1);
+            border-radius: 15px;
+            padding: 30px;
+            margin-bottom: 20px;
+            border: 2px solid #ff4500;
+        }
+
+        .waiting-message h3 {
+            color: #ff8c00;
+            font-size: 1.5em;
+            margin-bottom: 15px;
+        }
+
+        .waiting-message p {
+            color: #fff;
+            font-size: 1.2em;
+            margin-bottom: 20px;
+        }
+
+        .spinner {
+            width: 50px;
+            height: 50px;
+            border: 5px solid rgba(255, 69, 0, 0.3);
+            border-top-color: #ff4500;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 20px auto;
+        }
+
+        .admin-panel {
+            background: rgba(255, 69, 0, 0.15);
+            border-radius: 15px;
+            padding: 20px;
+            margin-top: 20px;
+            border: 3px solid #ff4500;
+        }
+
+        .admin-panel h3 {
+            color: #ff8c00;
+            font-size: 1.3em;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+
+        .admin-buttons {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+        }
+
+        .admin-button {
+            flex: 1;
+            padding: 15px;
+            border: none;
+            border-radius: 10px;
+            font-size: 1.1em;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .admin-button.approve {
+            background: linear-gradient(45deg, #00a86b, #00c853);
+            color: #fff;
+        }
+
+        .admin-button.approve:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 20px rgba(0, 200, 83, 0.4);
+        }
+
+        .admin-button.reject {
+            background: linear-gradient(45deg, #dc143c, #ff0000);
+            color: #fff;
+        }
+
+        .admin-button.reject:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 20px rgba(220, 20, 60, 0.4);
+        }
+
+        .admin-info {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 20px;
+            text-align: left;
+        }
+
+        .admin-info p {
+            color: #fff;
+            margin: 5px 0;
+        }
+
+        .admin-info strong {
+            color: #ff8c00;
+        }
+
+        .status-badge {
+            display: inline-block;
+            padding: 5px 10px;
+            border-radius: 5px;
+            font-size: 0.9em;
+            font-weight: 600;
+            margin-top: 10px;
+        }
+
+        .status-badge.pending {
+            background: rgba(255, 165, 0, 0.2);
+            color: orange;
+            border: 1px solid orange;
+        }
+
+        .status-badge.approved {
+            background: rgba(0, 200, 0, 0.2);
+            color: #00c853;
+            border: 1px solid #00c853;
+        }
+
+        .status-badge.rejected {
+            background: rgba(255, 0, 0, 0.2);
+            color: #ff0000;
+            border: 1px solid #ff0000;
+        }
+
+        .client-message {
+            background: rgba(255, 69, 0, 0.1);
+            border-radius: 15px;
+            padding: 20px;
+            margin: 20px 0;
+            text-align: center;
+            border: 2px solid #ff4500;
+            display: none;
+        }
+
+        .client-message.show {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .client-message.approved {
+            background: rgba(0, 200, 0, 0.2);
+            border-color: #00c853;
+        }
+
+        .client-message.approved h3 {
+            color: #00c853;
+        }
+
+        .client-message.rejected {
+            background: rgba(255, 0, 0, 0.2);
+            border-color: #ff0000;
+        }
+
+        .client-message.rejected h3 {
+            color: #ff0000;
+        }
+
+        .client-message h3 {
+            color: #ff8c00;
+            font-size: 1.3em;
+            margin-bottom: 10px;
+        }
+
+        .client-message p {
+            color: #fff;
+            font-size: 1.1em;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes glowPulse {
+            0% { text-shadow: 0 0 20px rgba(255, 69, 0, 0.5); }
+            50% { text-shadow: 0 0 40px rgba(255, 69, 0, 0.8); }
+            100% { text-shadow: 0 0 20px rgba(255, 69, 0, 0.5); }
+        }
+
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        @media (max-width: 600px) {
+            .product-card {
+                padding: 30px 20px;
+            }
+            .store-name h1 {
+                font-size: 1.8em;
+            }
+            .category-tabs {
+                flex-direction: column;
+            }
+            .tab-button {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="product-card">
+            <div class="store-name">
+                <h1>FATAL FURY<br><span>Roleplay</span></h1>
+            </div>
+
+            <div class="category-tabs">
+                <button class="tab-button active" id="tabCoins">💰 Coins</button>
+                <button class="tab-button" id="tabSkins">👥 Skins Casal</button>
+                <button class="tab-button" id="tabCaixas">📦 Caixas</button>
+                <button class="tab-button" id="tabArmas">🔫 Armas</button>
+            </div>
+
+            <div class="product-section active" id="coinsSection">
+                <div class="coin-calculator">
+                    <label>💎 Quantidade de Coins:</label>
+                    <div class="coin-input-group">
+                        <input type="number" id="coinAmount" min="1" value="20" step="1">
+                        <span>Coins</span>
+                    </div>
+                    <div class="coin-result">
+                        <div class="price" id="coinPrice">R$ 20,00</div>
+                        <div class="info">💰 1 Coin = R$ 1,00</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="product-section" id="skinsSection">
+                <h2 class="section-title">👥 Skins de Casal</h2>
+                <div class="product-list">
+                    <div class="product-item" data-product="Skin Casal Beautiful" data-price="16.56" data-type="skin" data-description="Skin exclusiva para casal">
+                        <div class="product-item-header">
+                            <h3>Skin Casal Beautiful</h3>
+                            <div class="product-item-price">R$ 16,56</div>
+                        </div>
+                        <div class="product-item-description">Skin exclusiva para casal</div>
+                    </div>
+                    <div class="product-item" data-product="Skin Casal Wonder" data-price="16.75" data-type="skin" data-description="Skin exclusiva para casal">
+                        <div class="product-item-header">
+                            <h3>Skin Casal Wonder</h3>
+                            <div class="product-item-price">R$ 16,75</div>
+                        </div>
+                        <div class="product-item-description">Skin exclusiva para casal</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="product-section" id="caixasSection">
+                <h2 class="section-title">📦 Loja de Caixas</h2>
+                <div class="product-list">
+                    <div class="product-item" data-product="Caixa Pequena" data-price="14.47" data-type="caixa" data-description="40% de chance de cair Dinheiro + Respeito">
+                        <div class="product-item-header">
+                            <h3>Caixa Pequena</h3>
+                            <div class="product-item-price">R$ 14,47</div>
+                        </div>
+                        <div class="product-item-description">40% de chance de cair Dinheiro + Respeito</div>
+                        <div class="chance-badge">40% de chance</div>
+                    </div>
+                    <div class="product-item" data-product="Caixa Média" data-price="16.35" data-type="caixa" data-description="30% de cair Dinheiro + Respeito + Caixas">
+                        <div class="product-item-header">
+                            <h3>Caixa Média</h3>
+                            <div class="product-item-price">R$ 16,35</div>
+                        </div>
+                        <div class="product-item-description">30% de cair Dinheiro + Respeito + Caixas</div>
+                        <div class="chance-badge">30% de chance</div>
+                    </div>
+                    <div class="product-item" data-product="Caixa Grande" data-price="18.19" data-type="caixa" data-description="30% de cair Dinheiro + Respeito + Caixas + Comida aleatória">
+                        <div class="product-item-header">
+                            <h3>Caixa Grande</h3>
+                            <div class="product-item-price">R$ 18,19</div>
+                        </div>
+                        <div class="product-item-description">30% de cair Dinheiro + Respeito + Caixas + Comida aleatória</div>
+                        <div class="chance-badge">30% de chance</div>
+                    </div>
+                    <div class="product-item" data-product="Caixa Surpresa Gold" data-price="38.99" data-type="caixa" data-description="Acessório raro + Dinheiro + Respeito + Arma + Comida + Caixas de Ítens + Direito a Troca de nome">
+                        <div class="product-item-header">
+                            <h3>Caixa Surpresa Gold</h3>
+                            <div class="product-item-price">R$ 38,99</div>
+                        </div>
+                        <div class="product-item-description">Acessório raro + Dinheiro + Respeito + Arma + Comida + Caixas de Ítens + Direito a Troca de nome</div>
+                        <div class="chance-badge">Especial</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="product-section" id="armasSection">
+                <h2 class="section-title">🔫 Loja de Armas</h2>
+                <div class="product-list">
+                    <div class="product-item" data-product="Arma de Ouro" data-price="28.14" data-type="arma" data-description="Arma especial de ouro">
+                        <div class="product-item-header">
+                            <h3>Arma de Ouro</h3>
+                            <div class="product-item-price">R$ 28,14</div>
+                        </div>
+                        <div class="product-item-description">Arma especial de ouro</div>
+                        <div class="chance-badge">Exclusivo</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="selected-product-info" id="selectedProductInfo" style="display: none;">
+                <h3 id="selectedProductName">Produto Selecionado</h3>
+                <div class="price" id="selectedProductPrice">R$ 0,00</div>
+                <div class="description" id="selectedProductDescription"></div>
+            </div>
+
+            <button class="buy-button" id="buyButton" disabled>Selecione um Produto</button>
+
+            <div class="form-container" id="formContainer">
+                <form id="purchaseForm">
+                    <div class="form-group">
+                        <label for="nick">🎮 Nome no Jogo</label>
+                        <input type="text" id="nick" name="nick" placeholder="Seu nick no SA-MP" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="discord">💬 Discord</label>
+                        <input type="text" id="discord" name="discord" placeholder="usuario#0000" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="telefone">📱 Número de Telefone</label>
+                        <input type="tel" id="telefone" name="telefone" placeholder="(00) 00000-0000" maxlength="15" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="gmail">📧 Gmail</label>
+                        <input type="email" id="gmail" name="gmail" placeholder="seuemail@gmail.com" required>
+                    </div>
+                    <button type="submit" class="submit-button">Gerar PIX</button>
+                </form>
+
+                <div class="pix-section confirm-section" id="pixSection">
+                    <div class="pix-container">
+                        <h3>Pagamento via PIX</h3>
+                        <div class="pix-value" id="pixValue">R$ 0,00</div>
+                        <div class="pix-key" id="pixKey">chave-pix@furryrp.com</div>
+                        <button class="copy-button" id="copyPixKey">Copiar Chave PIX</button>
+                    </div>
+                    <div class="file-upload">
+                        <label>📎 Enviar Comprovante</label>
+                        <input type="file" id="comprovante" accept="image/*,.pdf">
+                    </div>
+                    <div class="form-group">
+                        <label>💬 Mensagem (opcional)</label>
+                        <textarea id="mensagem" placeholder="Digite uma mensagem sobre o pagamento..."></textarea>
+                    </div>
+                    <button class="confirm-button" id="confirmPayment">Enviar Comprovante</button>
+                </div>
+
+                <div class="waiting-section" id="waitingSection">
+                    <div class="waiting-message">
+                        <h3>Pagamento em análise</h3>
+                        <div class="spinner"></div>
+                        <p>Aguarde, nossa equipe está revisando o pagamento</p>
+                        <div id="paymentStatus" class="status-badge pending">Aguardando confirmação</div>
+                    </div>
+                </div>
+
+                <div class="client-message" id="clientMessage">
+                    <h3 id="clientMessageTitle"></h3>
+                    <p id="clientMessageText"></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="adminPanel" style="display: none;">
+        <div class="admin-panel">
+            <h3>⚠️ Painel do Administrador</h3>
+            <div class="admin-info" id="adminInfo"></div>
+            <div class="admin-buttons">
+                <button class="admin-button approve" id="approvePayment">✅ Confirmar Pagamento</button>
+                <button class="admin-button reject" id="rejectPayment">❌ Recusar Pagamento</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const DISCORD_WEBHOOK_URL = 'https://discord.com/api/webhooks/1476637616656089118/z-VZQyYlxLE4eMezP6eFJBPfZ4Q4yl71bHZpB8zR6238TMM_dhsvw-JnJ_aVpMTeGLzS';
+        const REPLIT_DB_URL = '';
+
+        const savedId = localStorage.getItem('currentTransactionId');
+        const savedData = localStorage.getItem('transactionData');
+        let currentTransactionId = savedId || null;
+        let transactionData = savedData ? JSON.parse(savedData) : null;
+        
+        const tabCoins = document.getElementById('tabCoins');
+        const tabSkins = document.getElementById('tabSkins');
+        const tabCaixas = document.getElementById('tabCaixas');
+        const tabArmas = document.getElementById('tabArmas');
+        const coinsSection = document.getElementById('coinsSection');
+        const skinsSection = document.getElementById('skinsSection');
+        const caixasSection = document.getElementById('caixasSection');
+        const armasSection = document.getElementById('armasSection');
+        const buyButton = document.getElementById('buyButton');
+        const formContainer = document.getElementById('formContainer');
+        const purchaseForm = document.getElementById('purchaseForm');
+        const pixSection = document.getElementById('pixSection');
+        const waitingSection = document.getElementById('waitingSection');
+        const clientMessage = document.getElementById('clientMessage');
+        const clientMessageTitle = document.getElementById('clientMessageTitle');
+        const clientMessageText = document.getElementById('clientMessageText');
+        const telefoneInput = document.getElementById('telefone');
+        const coinAmount = document.getElementById('coinAmount');
+        const coinPrice = document.getElementById('coinPrice');
+        const selectedProductInfo = document.getElementById('selectedProductInfo');
+        const selectedProductName = document.getElementById('selectedProductName');
+        const selectedProductPrice = document.getElementById('selectedProductPrice');
+        const selectedProductDescription = document.getElementById('selectedProductDescription');
+        const pixValue = document.getElementById('pixValue');
+        const pixKey = document.getElementById('pixKey');
+        const copyPixKey = document.getElementById('copyPixKey');
+        const confirmPayment = document.getElementById('confirmPayment');
+        const comprovante = document.getElementById('comprovante');
+        const mensagem = document.getElementById('mensagem');
+        const adminPanel = document.getElementById('adminPanel');
+        const adminInfo = document.getElementById('adminInfo');
+        const approvePayment = document.getElementById('approvePayment');
+        const rejectPayment = document.getElementById('rejectPayment');
+        const paymentStatus = document.getElementById('paymentStatus');
+
+        let currentProduct = null;
+        let currentPrice = 0;
+        let currentType = null;
+        let currentDescription = '';
+        let statusCheckInterval = null;
+
+        function maskTelefone(value) {
+            return value.replace(/\D/g, '').replace(/(\d{2})(\d)/, '($1) $2').replace(/(\d{5})(\d)/, '$1-$2').replace(/(-\d{4})\d+?$/, '$1');
+        }
+
+        telefoneInput.addEventListener('input', (e) => {
+            e.target.value = maskTelefone(e.target.value);
+        });
+
+        function deactivateAllTabs() {
+            tabCoins.classList.remove('active');
+            tabSkins.classList.remove('active');
+            tabCaixas.classList.remove('active');
+            tabArmas.classList.remove('active');
+            coinsSection.classList.remove('active');
+            skinsSection.classList.remove('active');
+            caixasSection.classList.remove('active');
+            armasSection.classList.remove('active');
+        }
+
+        tabCoins.addEventListener('click', () => {
+            deactivateAllTabs();
+            tabCoins.classList.add('active');
+            coinsSection.classList.add('active');
+            updateSelectedProduct();
+        });
+
+        tabSkins.addEventListener('click', () => {
+            deactivateAllTabs();
+            tabSkins.classList.add('active');
+            skinsSection.classList.add('active');
+            document.querySelectorAll('#skinsSection .product-item').forEach(item => {
+                item.classList.remove('selected');
+            });
+            currentProduct = null;
+            updateSelectedProduct();
+        });
+
+        tabCaixas.addEventListener('click', () => {
+            deactivateAllTabs();
+            tabCaixas.classList.add('active');
+            caixasSection.classList.add('active');
+            document.querySelectorAll('#caixasSection .product-item').forEach(item => {
+                item.classList.remove('selected');
+            });
+            currentProduct = null;
+            updateSelectedProduct();
+        });
+
+        tabArmas.addEventListener('click', () => {
+            deactivateAllTabs();
+            tabArmas.classList.add('active');
+            armasSection.classList.add('active');
+            document.querySelectorAll('#armasSection .product-item').forEach(item => {
+                item.classList.remove('selected');
+            });
+            currentProduct = null;
+            updateSelectedProduct();
+        });
+
+        coinAmount.addEventListener('input', (e) => {
+            let value = parseInt(e.target.value) || 0;
+            if (value < 1) value = 1;
+            e.target.value = value;
+            const price = (value * 1).toFixed(2);
+            coinPrice.textContent = `R$ ${price.replace('.', ',')}`;
+            if (coinsSection.classList.contains('active')) {
+                currentProduct = `${value} Coins`;
+                currentPrice = value;
+                currentType = 'coins';
+                currentDescription = `${value} Coins no servidor (1 Coin = R$ 1,00)`;
+                updateSelectedProduct();
+            }
+        });
+
+        document.querySelectorAll('.product-item').forEach(item => {
+            item.addEventListener('click', () => {
+                const section = item.closest('.product-section');
+                section.querySelectorAll('.product-item').forEach(i => i.classList.remove('selected'));
+                item.classList.add('selected');
+                currentProduct = item.dataset.product;
+                currentPrice = parseFloat(item.dataset.price);
+                currentType = item.dataset.type;
+                currentDescription = item.dataset.description;
+                updateSelectedProduct();
+            });
+        });
+
+        function updateSelectedProduct() {
+            if (currentProduct && currentPrice > 0) {
+                selectedProductInfo.style.display = 'block';
+                selectedProductName.textContent = currentProduct;
+                selectedProductPrice.textContent = `R$ ${currentPrice.toFixed(2).replace('.', ',')}`;
+                selectedProductDescription.textContent = currentDescription;
+                buyButton.disabled = false;
+                buyButton.textContent = 'Comprar Agora';
+            } else {
+                selectedProductInfo.style.display = 'none';
+                buyButton.disabled = true;
+                buyButton.textContent = 'Selecione um Produto';
+            }
+        }
+
+        buyButton.addEventListener('click', () => {
+            if (!currentProduct || currentPrice <= 0) return;
+            formContainer.classList.add('show');
+            buyButton.style.display = 'none';
+            setTimeout(() => {
+                formContainer.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }, 300);
+        });
+
+        purchaseForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const nick = document.getElementById('nick').value.trim();
+            const discord = document.getElementById('discord').value.trim();
+            const telefone = document.getElementById('telefone').value.trim();
+            const gmail = document.getElementById('gmail').value.trim();
+            if (!nick || !discord || !telefone || !gmail) {
+                alert('Por favor, preencha todos os campos!');
+                return;
+            }
+            if (!discord.includes('#')) {
+                alert('Formato de Discord inválido! Use: usuario#0000');
+                return;
+            }
+            if (!gmail.includes('@gmail.com')) {
+                alert('Por favor, use um Gmail válido!');
+                return;
+            }
+            currentTransactionId = 'TRX-' + Date.now() + '-' + Math.random().toString(36).substr(2, 9);
+            pixValue.textContent = `R$ ${currentPrice.toFixed(2).replace('.', ',')}`;
+            pixKey.textContent = 'chave-pix@furryrp.com';
+            purchaseForm.style.display = 'none';
+            pixSection.classList.add('show');
+        });
+
+        copyPixKey.addEventListener('click', () => {
+            navigator.clipboard.writeText(pixKey.textContent).then(() => {
+                copyPixKey.textContent = 'Copiado!';
+                setTimeout(() => {
+                    copyPixKey.textContent = 'Copiar Chave PIX';
+                }, 2000);
+            });
+        });
+
+        async function saveTransactionToReplit(data) {
+            try {
+                const response = await fetch(`/api/save-transaction`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(data)
+                });
+                return await response.json();
+            } catch (error) {
+                console.error('Erro ao salvar no Replit:', error);
+                return null;
+            }
+        }
+
+        async function checkTransactionStatus() {
+            if (!currentTransactionId) return;
+            try {
+                const response = await fetch(`/api/check-status/${currentTransactionId}`);
+                const data = await response.json();
+                if (data.status === 'approved') {
+                    paymentStatus.className = 'status-badge approved';
+                    paymentStatus.textContent = '✅ Pagamento aprovado!';
+                    if (statusCheckInterval) clearInterval(statusCheckInterval);
+                    waitingSection.classList.remove('show');
+                    clientMessage.classList.add('show', 'approved');
+                    clientMessageTitle.textContent = '✅ Pagamento Confirmado!';
+                    clientMessageText.textContent = 'Agora é só aguardar o administrador entregar seus itens no jogo.';
+                } else if (data.status === 'rejected') {
+                    paymentStatus.className = 'status-badge rejected';
+                    paymentStatus.textContent = '❌ Pagamento rejeitado';
+                    if (statusCheckInterval) clearInterval(statusCheckInterval);
+                    waitingSection.classList.remove('show');
+                    clientMessage.classList.add('show', 'rejected');
+                    clientMessageTitle.textContent = '❌ Pagamento Não Identificado';
+                    clientMessageText.textContent = 'Não foi possível confirmar seu pagamento. Entre em contato com o suporte.';
+                }
+            } catch (error) {
+                console.error('Erro ao verificar status:', error);
+            }
+        }
+
+        confirmPayment.addEventListener('click', async () => {
+            if (!comprovante.files[0]) {
+                alert('Por favor, selecione um comprovante!');
+                return;
+            }
+            pixSection.classList.remove('show');
+            waitingSection.classList.add('show');
+            paymentStatus.className = 'status-badge pending';
+            paymentStatus.textContent = 'Aguardando confirmação';
+            const nick = document.getElementById('nick').value.trim();
+            const discord = document.getElementById('discord').value.trim();
+            const telefone = document.getElementById('telefone').value.trim();
+            const gmail = document.getElementById('gmail').value.trim();
+            const file = comprovante.files[0];
+            const msg = mensagem.value.trim();
+            transactionData = {
+                id: currentTransactionId,
+                nick,
+                discord,
+                telefone,
+                gmail,
+                product: currentProduct,
+                price: currentPrice,
+                type: currentType,
+                description: currentDescription,
+                message: msg,
+                status: 'pending',
+                timestamp: new Date().toISOString()
+            };
+            
+            localStorage.setItem('currentTransactionId', currentTransactionId);
+            localStorage.setItem('transactionData', JSON.stringify(transactionData));
+            
+            await saveTransactionToReplit(transactionData);
+            const adminLinkUrl = `${window.location.origin}${window.location.pathname}?admin=${currentTransactionId}`;
+            const reader = new FileReader();
+            reader.readAsDataURL(file);
+            reader.onload = async function() {
+                const typeNames = { 'coins': 'Pacote de Coins', 'skin': 'Skin de Casal', 'caixa': 'Caixa Misteriosa', 'arma': 'Arma Especial' };
+                const embed = {
+                    title: '🟡 NOVO COMPROVANTE - Fatal Fury Roleplay',
+                    color: 0xffaa00,
+                    fields: [
+                        { name: '🆔 ID da Transação:', value: currentTransactionId, inline: false },
+                        { name: '🔗 Link para Confirmar Pagamento:', value: adminLinkUrl, inline: false },
+                        { name: '🎮 Nome no Jogo:', value: nick, inline: true },
+                        { name: '💬 Discord:', value: discord, inline: true },
+                        { name: '📱 Telefone:', value: telefone, inline: true },
+                        { name: '📧 Gmail:', value: gmail, inline: true },
+                        { name: '🛍️ Produto:', value: currentProduct, inline: true },
+                        { name: '💵 Valor:', value: `R$ ${currentPrice.toFixed(2).replace('.', ',')}`, inline: true },
+                        { name: '📦 Tipo:', value: typeNames[currentType] || currentType, inline: true },
+                        { name: '📝 Mensagem:', value: msg || 'Sem mensagem', inline: false }
+                    ],
+                    image: { url: `attachment://${file.name}` },
+                    timestamp: new Date().toISOString(),
+                    footer: { text: 'Fatal Fury Roleplay - Clique no link para confirmar' }
+                };
+                const formData = new FormData();
+                formData.append('file', file);
+                formData.append('payload_json', JSON.stringify({ embeds: [embed] }));
+                try {
+                    await fetch(DISCORD_WEBHOOK_URL, { method: 'POST', body: formData });
+                    statusCheckInterval = setInterval(checkTransactionStatus, 3000);
+                } catch (error) {
+                    console.error('Erro:', error);
+                }
+            };
+        });
+
+        function checkForAdminAccess() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const adminId = urlParams.get('admin');
+            
+            if (!currentTransactionId && localStorage.getItem('currentTransactionId')) {
+                currentTransactionId = localStorage.getItem('currentTransactionId');
+                transactionData = JSON.parse(localStorage.getItem('transactionData'));
+            }
+            
+            if (adminId && adminId === currentTransactionId && transactionData) {
+                document.querySelector('.product-card').appendChild(adminPanel);
+                adminPanel.style.display = 'block';
+                adminInfo.innerHTML = `
+                    <p><strong>ID:</strong> ${transactionData.id}</p>
+                    <p><strong>Cliente:</strong> ${transactionData.nick}</p>
+                    <p><strong>Discord:</strong> ${transactionData.discord}</p>
+                    <p><strong>Produto:</strong> ${transactionData.product}</p>
+                    <p><strong>Valor:</strong> R$ ${transactionData.price.toFixed(2).replace('.', ',')}</p>
+                    <p><strong>Mensagem:</strong> ${transactionData.message || 'Sem mensagem'}</p>
+                    <p><strong>Status:</strong> <span class="status-badge pending">Aguardando</span></p>
+                `;
+            }
+        }
+
+        async function updateTransactionStatus(status) {
+            try {
+                await fetch(`/api/update-status`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ id: currentTransactionId, status: status })
+                });
+            } catch (error) {
+                console.error('Erro ao atualizar status:', error);
+            }
+        }
+
+        if (approvePayment) {
+            approvePayment.addEventListener('click', async function() {
+                const embed = {
+                    title: '✅ PAGAMENTO CONFIRMADO - Fatal Fury Roleplay',
+                    color: 0x00ff00,
+                    fields: [
+                        { name: '🆔 ID da Transação:', value: currentTransactionId, inline: false },
+                        { name: '🎮 Cliente:', value: transactionData.nick, inline: true },
+                        { name: '💬 Discord:', value: transactionData.discord, inline: true },
+                        { name: '🛍️ Produto:', value: transactionData.product, inline: true },
+                        { name: '💵 Valor:', value: `R$ ${transactionData.price.toFixed(2).replace('.', ',')}`, inline: true },
+                        { name: '👤 Confirmado por:', value: 'Administrador', inline: false }
+                    ],
+                    timestamp: new Date().toISOString(),
+                    footer: { text: 'Fatal Fury Roleplay - Pagamento Aprovado' }
+                };
+                await updateTransactionStatus('approved');
+                await fetch(DISCORD_WEBHOOK_URL, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ embeds: [embed] })
+                });
+                localStorage.removeItem('currentTransactionId');
+                localStorage.removeItem('transactionData');
+                adminPanel.style.display = 'none';
+                alert('Pagamento confirmado com sucesso! O cliente já foi notificado.');
+                setTimeout(() => { window.close(); }, 2000);
+            });
+        }
+
+        if (rejectPayment) {
+            rejectPayment.addEventListener('click', async function() {
+                const embed = {
+                    title: '❌ PAGAMENTO REJEITADO - Fatal Fury Roleplay',
+                    color: 0xff0000,
+                    fields: [
+                        { name: '🆔 ID da Transação:', value: currentTransactionId, inline: false },
+                        { name: '🎮 Cliente:', value: transactionData.nick, inline: true },
+                        { name: '💬 Discord:', value: transactionData.discord, inline: true },
+                        { name: '🛍️ Produto:', value: transactionData.product, inline: true },
+                        { name: '💵 Valor:', value: `R$ ${transactionData.price.toFixed(2).replace('.', ',')}`, inline: true },
+                        { name: '👤 Rejeitado por:', value: 'Administrador', inline: false }
+                    ],
+                    timestamp: new Date().toISOString(),
+                    footer: { text: 'Fatal Fury Roleplay - Pagamento Rejeitado' }
+                };
+                await updateTransactionStatus('rejected');
+                await fetch(DISCORD_WEBHOOK_URL, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ embeds: [embed] })
+                });
+                localStorage.removeItem('currentTransactionId');
+                localStorage.removeItem('transactionData');
+                adminPanel.style.display = 'none';
+                alert('Pagamento rejeitado! O cliente foi notificado.');
+                setTimeout(() => { window.close(); }, 2000);
+            });
+        }
+
+        setInterval(checkForAdminAccess, 1000);
+        coinAmount.dispatchEvent(new Event('input'));
+    </script>
+</body>
+</html>
