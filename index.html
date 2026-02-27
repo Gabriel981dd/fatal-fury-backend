@@ -1563,36 +1563,67 @@
 
         async function checkTransactionStatus() {
             if (!currentTransactionId) return;
+            
             try {
                 const response = await fetch(`${API_URL}/api/compras/${currentTransactionId}`);
+                
                 if (response.ok) {
                     const data = await response.json();
+                    
                     if (data.status === 'approved') {
+                        if (statusCheckInterval) {
+                            clearInterval(statusCheckInterval);
+                            statusCheckInterval = null;
+                        }
+                        
                         paymentStatus.className = 'status-badge approved';
                         paymentStatus.textContent = '✅ Pagamento aprovado!';
-                        if (statusCheckInterval) clearInterval(statusCheckInterval);
                         waitingSection.classList.remove('show');
                         clientMessage.classList.add('show', 'approved');
                         clientMessageTitle.textContent = '✅ Pagamento Confirmado!';
-                        clientMessageText.textContent = 'Agora é só aguardar o administrador entregar seus itens no jogo.';
-                    } else if (data.status === 'rejected') {
+                        clientMessageText.textContent = 'Seus itens serão entregues em breve no jogo.';
+                        
+                        console.log('Pagamento aprovado!');
+                    } 
+                    else if (data.status === 'rejected') {
+                        if (statusCheckInterval) {
+                            clearInterval(statusCheckInterval);
+                            statusCheckInterval = null;
+                        }
+                        
                         paymentStatus.className = 'status-badge rejected';
                         paymentStatus.textContent = '❌ Pagamento rejeitado';
-                        if (statusCheckInterval) clearInterval(statusCheckInterval);
                         waitingSection.classList.remove('show');
                         clientMessage.classList.add('show', 'rejected');
                         clientMessageTitle.textContent = '❌ Pagamento Não Identificado';
                         clientMessageText.textContent = 'Não foi possível confirmar seu pagamento. Entre em contato com o suporte.';
+                        
+                        console.log('Pagamento rejeitado');
                     }
+                    else {
+                        console.log('Aguardando confirmação...');
+                    }
+                } else {
+                    console.log('Erro ao buscar status:', response.status);
                 }
             } catch (error) {
-                console.error('Erro ao verificar status:', error);
+                console.error('Erro na verificação:', error);
             }
         }
 
         function iniciarVerificacaoStatus() {
-            if (statusCheckInterval) clearInterval(statusCheckInterval);
-            statusCheckInterval = setInterval(checkTransactionStatus, 5000);
+            if (statusCheckInterval) {
+                clearInterval(statusCheckInterval);
+            }
+            
+            console.log('Iniciando verificação de status a cada 5 segundos');
+            
+            setTimeout(checkTransactionStatus, 1000);
+            
+            statusCheckInterval = setInterval(() => {
+                console.log('Verificando status...');
+                checkTransactionStatus();
+            }, 5000);
         }
 
         function showLoading(message) {
@@ -1963,4 +1994,4 @@
         })();
     </script>
 </body>
-                                                        </html>
+                        </html>
