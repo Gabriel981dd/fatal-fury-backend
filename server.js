@@ -8,14 +8,11 @@ require('dotenv').config();
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-// Middlewares
 app.use(cors());
 app.use(express.json());
 
-// Caminho do arquivo JSON
 const DATA_FILE = path.join(__dirname, 'transacoes.json');
 
-// Função para ler o arquivo
 function lerTransacoes() {
     try {
         const data = fs.readFileSync(DATA_FILE, 'utf8');
@@ -25,40 +22,40 @@ function lerTransacoes() {
     }
 }
 
-// Função para escrever no arquivo
 function escreverTransacoes(transacoes) {
     fs.writeFileSync(DATA_FILE, JSON.stringify(transacoes, null, 2));
 }
 
-// ROTA DE TESTE (para saber se o servidor está vivo)
 app.get('/', (req, res) => {
     res.send('🚀 Servidor Fatal Fury está funcionando!');
 });
 
-// ROTA PÚBLICA: receber nova compra (POST)
 app.post('/api/compras', (req, res) => {
     const compra = req.body;
-    console.log('Compra recebida:', compra); // Log para debug
-
     if (!compra.id || !compra.nick || !compra.product) {
         return res.status(400).json({ erro: 'Dados incompletos' });
     }
-
     const transacoes = lerTransacoes();
     transacoes[compra.id] = { ...compra, status: 'pending' };
     escreverTransacoes(transacoes);
-
     res.json({ sucesso: true, id: compra.id });
 });
 
-// ROTA DE LOGIN
+app.get('/api/compras/:id', (req, res) => {
+    const { id } = req.params;
+    const transacoes = lerTransacoes();
+    if (transacoes[id]) {
+        const { nick, product, price, status, timestamp } = transacoes[id];
+        res.json({ nick, product, price, status, timestamp });
+    } else {
+        res.status(404).json({ erro: 'Transação não encontrada' });
+    }
+});
+
 app.post('/api/login', (req, res) => {
     const { login, senha } = req.body;
-    console.log('Tentativa de login:', login); // Log para debug
-
     const adminLogin = process.env.ADMIN_LOGIN || 'admin';
     const adminSenha = process.env.ADMIN_SENHA || '123456';
-
     if (login === adminLogin && senha === adminSenha) {
         const token = jwt.sign(
             { role: 'admin' },
@@ -71,11 +68,9 @@ app.post('/api/login', (req, res) => {
     }
 });
 
-// Middleware de verificação de token
 function verificarToken(req, res, next) {
     const authHeader = req.headers.authorization;
     if (!authHeader) return res.status(401).json({ erro: 'Token não fornecido' });
-
     const token = authHeader.split(' ')[1];
     try {
         jwt.verify(token, process.env.JWT_SECRET || 'segredo-super-seguro');
@@ -85,33 +80,26 @@ function verificarToken(req, res, next) {
     }
 }
 
-// ROTA PROTEGIDA: listar transações
 app.get('/api/admin/transacoes', verificarToken, (req, res) => {
     const transacoes = lerTransacoes();
     res.json(transacoes);
 });
 
-// ROTA PROTEGIDA: atualizar status
 app.put('/api/admin/transacoes/:id', verificarToken, (req, res) => {
     const { id } = req.params;
     const { status } = req.body;
-
     if (!['approved', 'rejected'].includes(status)) {
         return res.status(400).json({ erro: 'Status inválido' });
     }
-
     const transacoes = lerTransacoes();
     if (!transacoes[id]) {
         return res.status(404).json({ erro: 'Transação não encontrada' });
     }
-
     transacoes[id].status = status;
     escreverTransacoes(transacoes);
-
     res.json({ sucesso: true });
 });
 
-// Iniciar o servidor
 app.listen(PORT, () => {
     console.log(`Servidor rodando na porta ${PORT}`);
 });
