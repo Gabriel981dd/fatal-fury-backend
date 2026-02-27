@@ -975,6 +975,63 @@
             transform: scale(1.05);
         }
 
+        .terms-box {
+            background: rgba(255, 69, 0, 0.1);
+            border: 2px solid #ff4500;
+            border-radius: 15px;
+            padding: 15px;
+            margin: 20px 0;
+            text-align: left;
+        }
+
+        .terms-box h3 {
+            color: #ff8c00;
+            font-size: 1.3em;
+            margin-bottom: 10px;
+            font-family: 'Bebas Neue', cursive;
+            letter-spacing: 1px;
+        }
+
+        .terms-summary {
+            color: #ccc;
+            font-size: 0.95em;
+            line-height: 1.5;
+            padding-left: 10px;
+            border-left: 3px solid #ff4500;
+            margin-bottom: 10px;
+        }
+
+        .terms-summary p {
+            margin: 5px 0;
+        }
+
+        .terms-link {
+            color: #ff8c00;
+            text-decoration: underline;
+            font-weight: 600;
+            cursor: pointer;
+            display: inline-block;
+            margin-bottom: 10px;
+        }
+
+        .terms-link:hover {
+            color: #ff4500;
+        }
+
+        .terms-checkbox {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: #fff;
+            font-size: 0.95em;
+        }
+
+        .terms-checkbox input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+            accent-color: #ff4500;
+        }
+
         .waiting-section {
             display: none;
             animation: fadeIn 0.5s ease;
@@ -1111,6 +1168,7 @@
             .admin-buttons { flex-direction: column; }
             .admin-button { width: 100%; }
             .login-button { font-size: 0.8em; padding: 8px 12px; }
+            .terms-summary { font-size: 0.85em; }
         }
     </style>
 </head>
@@ -1245,7 +1303,26 @@
                         <label for="gmail">📧 Gmail</label>
                         <input type="email" id="gmail" name="gmail" placeholder="seuemail@gmail.com" required>
                     </div>
-                    <button type="submit" class="submit-button">Gerar PIX</button>
+
+                    <!-- TERMOS DE COMPRA -->
+                    <div class="terms-box">
+                        <h3>📜 Termos de Compra</h3>
+                        <div class="terms-summary">
+                            <p>• Pagamento antecipado via PIX</p>
+                            <p>• Sem devolução (exceto erro nosso)</p>
+                            <p>• Entrega em até 48h</p>
+                            <p>• Direito a reembolso +10% se não entregue</p>
+                            <p>• Produto exclusivo para uso no jogo</p>
+                            <p>• Ao comprar, você aceita as regras do servidor</p>
+                        </div>
+                        <a href="https://yr2fdo9b.forms.app/formulario-sem-titulo-1" target="_blank" class="terms-link">📖 Ler termos completos</a>
+                        <div class="terms-checkbox">
+                            <input type="checkbox" id="acceptTerms" required>
+                            <label for="acceptTerms">Li e aceito os termos de compra</label>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="submit-button" id="submitPurchaseBtn">Gerar PIX</button>
                 </form>
 
                 <div class="pix-section confirm-section" id="pixSection">
@@ -1255,14 +1332,18 @@
                         <div class="pix-key" id="pixKey">chave-pix@furryrp.com</div>
                         <button class="copy-button" id="copyPixKey">Copiar Chave PIX</button>
                     </div>
+                    
+                    <!-- COMPROVANTE AGORA FICA EM BAIXO (COMO PEDIDO) -->
+                    <div class="form-group">
+                        <label for="mensagem">💬 Mensagem (opcional)</label>
+                        <textarea id="mensagem" placeholder="Digite uma mensagem sobre o pagamento..."></textarea>
+                    </div>
+                    
                     <div class="file-upload">
                         <label>📎 Enviar Comprovante</label>
                         <input type="file" id="comprovante" accept="image/*,.pdf">
                     </div>
-                    <div class="form-group">
-                        <label>💬 Mensagem (opcional)</label>
-                        <textarea id="mensagem" placeholder="Digite uma mensagem sobre o pagamento..."></textarea>
-                    </div>
+                    
                     <button class="confirm-button" id="confirmPayment">Enviar Comprovante</button>
                 </div>
 
@@ -1358,6 +1439,8 @@
         const rejectPayment = document.getElementById('rejectPayment');
         const loginButton = document.getElementById('loginButton');
         const logoutButton = document.getElementById('logoutButton');
+        const acceptTerms = document.getElementById('acceptTerms');
+        const submitPurchaseBtn = document.getElementById('submitPurchaseBtn');
 
         function maskTelefone(value) {
             return value.replace(/\D/g, '').replace(/(\d{2})(\d)/, '($1) $2').replace(/(\d{5})(\d)/, '$1-$2').replace(/(-\d{4})\d+?$/, '$1');
@@ -1472,10 +1555,18 @@
 
         purchaseForm.addEventListener('submit', async (e) => {
             e.preventDefault();
+            
+            // Verifica se os termos foram aceitos
+            if (!acceptTerms.checked) {
+                alert('Você precisa aceitar os termos de compra para continuar!');
+                return;
+            }
+            
             const nick = document.getElementById('nick').value.trim();
             const discord = document.getElementById('discord').value.trim();
             const telefone = document.getElementById('telefone').value.trim();
             const gmail = document.getElementById('gmail').value.trim();
+            
             if (!nick || !discord || !telefone || !gmail) {
                 alert('Por favor, preencha todos os campos!');
                 return;
@@ -1994,4 +2085,4 @@
         })();
     </script>
 </body>
-                        </html>
+    </html>
